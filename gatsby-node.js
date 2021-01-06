@@ -34,6 +34,73 @@ const filePathToDocType = filePath => {
   }
 };
 
+const legacyProductName = {
+  ark: 'EDB Postgres Ark Platform',
+  bart: 'EDB Backup and Recovery Tool',
+  efm: 'EDB Postgres Failover Manager',
+  epas: 'EDB Postgres Advanced Server',
+  hadoop_data_adapter: 'EDB Postgres Hadoop Foreign Data Wrapper',
+  jdbc_connector: 'EDB JDBC Connector',
+  migration_portal: 'EDB Postgres Migration Portal',
+  migration_toolkit: 'EDB Postgres Migration Toolkit',
+  net_connector: 'EDB .NET Connector',
+  ocl_connector: 'EDB OCL Connector',
+  odbc_connector: 'EDB ODBC Connector',
+  pem: 'EDB Postgres Enterprise Manager',
+  pgbouncer: 'EDB Postgres PgBouncer',
+  pgpool: 'EDB Postgres Pgpool-II',
+  postgis: 'EDB Postgres PostGIS',
+  slony: 'EDB Postgres Slony Replication',
+};
+
+const products = {};
+const scraped_data = JSON.parse(
+  gracefulFs.readFileSync('legacy_docs_scrape_dec_17.json'),
+);
+scraped_data.forEach(entry => {
+  const { product, version, ...details } = entry;
+  products[product] = products[product] || {};
+  products[product][version] = products[product][version] || [];
+  products[product][version].push(details);
+});
+
+const findRedirectMatch = (doc, docPath) => {
+  let possibleMatches =
+    products[legacyProductName[doc.fields.product]][
+      doc.fields.version.toString()
+    ];
+  possibleMatches = possibleMatches.filter(m =>
+    m.title.toLowerCase().includes(doc.frontmatter.title.toLowerCase()),
+  );
+  // if (possibleMatches > 1) {
+  //   possibleMatches = possibleMatches.filter(m =>
+  //     m.nav.find(n => n.toLowerCase().includes(docPath[0].toLowerCase()))
+  //   );
+  // }
+  // console.log(possibleMatches.length + ' possible matches');
+  // if (possibleMatches.length === 2) {
+  //   console.log(`${doc.fields.product} ${doc.fields.version} ${doc.frontmatter.title} ${doc.fields.path}`);
+  //   console.log(docPath);
+  //   console.log(possibleMatches);
+  // }
+
+  const splitNewPath = doc.fields.path.split('/');
+  const newPage = splitNewPath[splitNewPath.length - 1].replace(/^\d*_/, '');
+  console.log(newPage);
+
+  possibleMatches = possibleMatches.filter(m => {
+    const oldPage = m.url
+      .split('/')
+      [m.url.split('/').length - 1].replace('.html', '');
+    console.log(oldPage);
+    return oldPage === newPage;
+  });
+
+  console.log(possibleMatches.length + ' possible matches');
+
+  // maybe try comparing the last section of the URLs? need to normalize to remove leading numbers and extension
+};
+
 const productLatestVersionCache = [];
 
 exports.onCreateNode = async ({ node, getNode, actions }) => {
@@ -189,6 +256,15 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
   }
 
   docs.forEach(doc => {
+    const { path, product, version } = doc.fields;
+    const { title } = doc.frontmatter;
+
+    const navLinks = docs.filter(
+      node =>
+        node.fields.product === doc.fields.product &&
+        node.fields.version === doc.fields.version,
+    );
+
     const isLatest = versionIndex[doc.fields.product][0] === doc.fields.version;
     if (isLatest) {
       actions.createRedirect({
@@ -200,11 +276,30 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
       });
     }
 
-    const navLinks = docs.filter(
-      node =>
-        node.fields.product === doc.fields.product &&
-        node.fields.version === doc.fields.version,
-    );
+    if (product === 'bart' && version.toString() === '2.6') {
+      console.log(`${product} ${version} ${title} ${path}`);
+      const docPath = [];
+      let splitPath = path.split('/');
+      let i = 0;
+      // console.log(navLinks);
+      while (splitPath[splitPath.length - 1] != product) {
+        i++;
+        if (i > 10) {
+          console.log('loop failed to exit');
+          break;
+        }
+        splitPath.pop();
+        const parent = navLinks.find(
+          doc => doc.fields.path === splitPath.join('/'),
+        );
+        if (parent) {
+          docPath.push(parent.frontmatter.title);
+        }
+      }
+      console.log(docPath);
+      findRedirectMatch(doc, docPath);
+      console.log('');
+    }
 
     const docsRepoUrl = 'https://github.com/EnterpriseDB/docs';
     const branch = isProduction ? 'main' : 'develop';

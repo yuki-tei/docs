@@ -106,10 +106,16 @@ const LeftNav = ({
   iconName,
   navOrder = null,
 }) => {
-  const newList = versionArray
-    ? filterAndSortLinks(navLinks, getBaseUrl(path, 3))
-    : filterAndSortLinks(navLinks, getBaseUrl(path, 2));
+  // const newList = versionArray
+  //   ? filterAndSortLinks(navLinks, getBaseUrl(path, 3))
+  //   : filterAndSortLinks(navLinks, getBaseUrl(path, 2));
+  const newList = filterAndSortLinks(
+    navLinks,
+    getBaseUrl(path, versionArray ? 3 : 2),
+  );
+  // console.log(newList);
   const tree = orderTree(makeTree(newList), navOrder);
+  // console.log(makeTree(newList));
 
   return (
     <ul className="list-unstyled mt-0">
