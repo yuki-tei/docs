@@ -297,6 +297,13 @@ module.exports = {
     'gatsby-plugin-sharp',
     'gatsby-plugin-meta-redirect',
     'gatsby-plugin-netlify',
+    {
+      resolve: `gatsby-plugin-htaccess-redirects`,
+      options: {
+        prefix: '<IfModule mod_rewrite.c>\nRewriteEngine On',
+        suffix: '</IfModule>',
+      },
+    },
     // 'gatsby-plugin-remove-fingerprints', // speeds up Netlify, see https://github.com/narative/gatsby-plugin-remove-fingerprints
     'gatsby-plugin-sitemap',
     {
