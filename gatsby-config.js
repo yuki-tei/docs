@@ -369,6 +369,14 @@ module.exports = {
         ],
       },
     },
+    {
+      resolve: 'gatsby-plugin-nginx-redirect',
+      options: {
+        inputConfigFile: `${__dirname}/example_nginx.conf`,
+        outputConfigFile: `${__dirname}/example_nginx.out.conf`,
+        whereToIncludeRedirects: 'server', // defaults to: "server"
+      },
+    },
   ],
 };
 

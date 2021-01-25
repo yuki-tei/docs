@@ -162,6 +162,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
             navTitle
             description
             redirects
+            legacyRedirects
             iconName
             katacodaPages {
               scenario
@@ -209,10 +210,21 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
 
   nodes.forEach(doc => {
     const { path } = doc.fields;
-    const { redirects } = doc.frontmatter;
+    const { redirects, legacyRedirects } = doc.frontmatter;
 
     if (redirects) {
       redirects.forEach(fromPath => {
+        actions.createRedirect({
+          fromPath,
+          toPath: path,
+          redirectInBrowser: true,
+          isPermanent: true,
+        });
+      });
+    }
+
+    if (legacyRedirects) {
+      legacyRedirects.forEach(fromPath => {
         actions.createRedirect({
           fromPath,
           toPath: path,
