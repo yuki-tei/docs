@@ -12,6 +12,8 @@ ANSI_GREEN = '\033[32m'
 ANSI_YELLOW = '\033[33m'
 ANSI_RED = '\033[31m'
 
+NEW_URLS_REMOVED_FILES = ['genindex', 'introduction', 'conclusion', 'whats_new']
+
 # Notes
 # ARK 3.5 API User's Guide uses old scheme, other 3.5 uses new scheme
 # epas 12 12_edb_plus folder not on legacy site
@@ -97,6 +99,15 @@ def normalize_title(title):
 #       titles.append(re.sub(r'^\d*\.?\d*\.?\d*\.?\d*\t* *', '', entry).lower())
 #   return titles
 
+def determine_root_mdx_file(docs_path, mdx_folder):
+  root_path = docs_path
+  if mdx_folder:
+    root_path += '/{}'.format(mdx_folder)
+  index_path = root_path + '/index.mdx'
+  if not os.path.exists(index_path):
+    return None
+  return index_path
+
 def print_report(report_dict):
   for key in report_dict.keys():
     value = report_dict[key]
@@ -110,8 +121,9 @@ def print_csv_report(report_dict):
   print('Product,Version,Legacy Docs Folder')
   for product, versions in report_dict.items():
     for version, folders in versions.items():
-      for folder in folders:
-        print('{0},{1},{2}'.format(product, version, folder))
+      for folder, urls in folders.items():
+        for url in urls: 
+          print('{0},{1},{2},{3}'.format(product, version, folder, url))
 
 
 metadata_file = open(os.path.dirname(__file__) + '/legacy_redirect_metadata.json')
@@ -233,6 +245,18 @@ for product in legacy_urls_by_product_version.keys():
             match_found = True
             break # TODO handle duplicate url bug that affects some "new" style urls
 
+        # if no match found, check for files we remove
+        if legacy_page_filename in NEW_URLS_REMOVED_FILES:
+          index_path = determine_root_mdx_file(docs_path, mdx_folder)
+          if index_path:
+            output[index_path].append(url)
+            matched_count += 1
+            match_found = True
+
+        # if still no match found, check to see if it's a product root
+        if re.match(r'\/edb-docs\/p\/[\w-]+\/[\d.]+$', url):
+          print(url)
+
         if not match_found:
           new_failed_to_match[product][version][mdx_folder].append(url)
           new_failed_to_match_count += 1
@@ -241,39 +265,39 @@ for product in legacy_urls_by_product_version.keys():
       else:
         old_count += 1
         
-        legacy_title = normalize_title(legacy_page['title'])
+        # legacy_title = normalize_title(legacy_page['title'])
 
-        heading_matches = []
-        for filename in mdx_files:
-          mdx_title = normalize_title(title_from_frontmatter(filename))
-          mdx_headings = headings_from_mdx(filename)
+        # heading_matches = []
+        # for filename in mdx_files:
+        #   mdx_title = normalize_title(title_from_frontmatter(filename))
+        #   mdx_headings = headings_from_mdx(filename)
 
-          if legacy_title == mdx_title:
-            output[str(filename)].append(url)
-            matched_count += 1
-            match_found = True
-            break
-          if legacy_title in mdx_headings:
-            heading_matches.append(filename)
+        #   if legacy_title == mdx_title:
+        #     output[str(filename)].append(url)
+        #     matched_count += 1
+        #     match_found = True
+        #     break
+        #   if legacy_title in mdx_headings:
+        #     heading_matches.append(filename)
 
-        if not match_found and len(heading_matches) > 0:
-          if len(heading_matches) > 1:
-            None
-            # TODO figure out what do with these 
-            # print("multiple heading match")
-            # for filename in heading_matches:
-            #   print('{0} - {1} - {2}'.format(legacy_title, filename, url))
-          else:
-            filename = heading_matches[0]
-            output[str(filename)].append(url)
-            matched_count += 1
-            match_found = True
+        # if not match_found and len(heading_matches) > 0:
+        #   if len(heading_matches) > 1:
+        #     None
+        #     # TODO figure out what do with these 
+        #     # print("multiple heading match")
+        #     # for filename in heading_matches:
+        #     #   print('{0} - {1} - {2}'.format(legacy_title, filename, url))
+        #   else:
+        #     filename = heading_matches[0]
+        #     output[str(filename)].append(url)
+        #     matched_count += 1
+        #     match_found = True
 
 
-        if not match_found:
-          old_failed_to_match[product][version][mdx_folder].append(url)
-          old_failed_to_match_count += 1
-          # print('{0} - {1}'.format(legacy_title, url))
+        # if not match_found:
+        #   old_failed_to_match[product][version][mdx_folder].append(url)
+        #   old_failed_to_match_count += 1
+        #   # print('{0} - {1}'.format(legacy_title, url))
 
 
 print("\n{0}================ Report ================{1}".format(ANSI_BLUE, ANSI_STOP))
@@ -307,4 +331,4 @@ for path in Path('product_docs/docs').rglob('*.mdx'):
 print("wrote to {0} of {1} mdx files".format(len(output.keys()), mdx_file_count))
 
 
-print_csv_report(no_files_in_folder)
+print_csv_report(new_failed_to_match)
