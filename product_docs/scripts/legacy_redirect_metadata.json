@@ -144,6 +144,22 @@
       }
     }
   },
+  "EDB Postgres MongoDB Foreign Data Wrapper": {
+    "folder_name": "mongo_data_adapter",
+    "subfolders": {
+      "default": {
+        "user-guides/user-guide": ""
+      }
+    }
+  },
+  "EDB Postgres MySQL Foreign Data Wrapper": {
+    "folder_name": "mysql_data_adapter",
+    "subfolders": {
+      "default": {
+        "user-guides/user-guide": ""
+      }
+    }
+  },
   "EDB .NET Connector": {
     "folder_name": "net_connector",
     "subfolders": {
@@ -176,6 +192,7 @@
         "installation-getting-started/pgbouncer-configuration-guide": "pem_pgbouncer",
         "installation-getting-started/upgrade-migration-guide": "pem_upgrade",
         "installation-getting-started/windows-installation-guide": "pem_inst_guide_windows",
+        "reference/online-documentation": "pem_online_help",
         "user-guides/administrators-guide": "pem_admin",
         "user-guides/agent-user-guide": "pem_agent",
         "user-guides/bart-management-features-guide": "pem_bart",

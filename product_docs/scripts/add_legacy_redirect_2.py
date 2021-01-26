@@ -99,7 +99,7 @@ def normalize_title(title):
 #       titles.append(re.sub(r'^\d*\.?\d*\.?\d*\.?\d*\t* *', '', entry).lower())
 #   return titles
 
-def determine_root_mdx_file(docs_path, mdx_folder):
+def determine_root_mdx_file(docs_path, mdx_folder = None):
   root_path = docs_path
   if mdx_folder:
     root_path += '/{}'.format(mdx_folder)
@@ -130,7 +130,7 @@ metadata_file = open(os.path.dirname(__file__) + '/legacy_redirect_metadata.json
 legacy_metadata_by_product = json.load(metadata_file)
 metadata_file.close()
 
-json_file = open('legacy_docs_scrape_jan_13.json')
+json_file = open('legacy_docs_scrape_jan_25.json')
 scraped_legacy_docs_json = json.load(json_file)
 json_file.close()
 
@@ -188,7 +188,20 @@ for product in legacy_urls_by_product_version.keys():
         continue
 
       url_scheme = determine_url_scheme(url)
-      legacy_folder = '/'.join(url.split('/')[6:8]) # this might break with index pages
+
+      # if product version index page, can match right here
+      is_product_index = re.search(r'\/edb-docs\/p\/[\w-]+\/[\d.]+$', url)
+      if is_product_index:
+        index_path = determine_root_mdx_file(docs_path)
+        if index_path:
+          output[index_path].append(url)
+          processed_count += 1
+          matched_count += 1
+          break
+
+      # look at edb-docs/d/edb-postgres-mysql-data-adapter/user-guides/user-guide/2.5.5/architecture_overview.html
+
+      legacy_folder = '/'.join(url.split('/')[6:8])
       mdx_folder = metadata['subfolders'].get(version)
       if mdx_folder:
         mdx_folder = mdx_folder.get(legacy_folder)
@@ -252,10 +265,6 @@ for product in legacy_urls_by_product_version.keys():
             output[index_path].append(url)
             matched_count += 1
             match_found = True
-
-        # if still no match found, check to see if it's a product root
-        if re.match(r'\/edb-docs\/p\/[\w-]+\/[\d.]+$', url):
-          print(url)
 
         if not match_found:
           new_failed_to_match[product][version][mdx_folder].append(url)
