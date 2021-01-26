@@ -4,20 +4,19 @@ title: "RETURNING BULK COLLECT"
 
 <div id="returning_bulk_collect" class="registered_link"></div>
 
+The `BULK COLLECT` clause can be added to the `RETURNING INTO` clause of a `DELETE, INSERT`, or `UPDATE` command. (See [Using the RETURNING INTO Clause](../../04_basic_statements/05_using_the_returning_into_clause/#using_the_returning_into_clause) for information on the `RETURNING INTO` clause.)
 
-The `BULK COLLECT` clause can be added to the `RETURNING INTO` clause of a `DELETE, INSERT`, or `UPDATE` command. (See [Using the RETURNING INTO Clause](../../04_basic_statements/#using_the_returning_into_clause) for information on the `RETURNING INTO` clause.)
-
-``` text
+```text
 { <insert> | <update> | <delete> }
   RETURNING { * | <expr_1> [, <expr_2> ] ...}
     BULK COLLECT INTO <collection> [, ...];
 ```
 
-`insert, update`, and `delete` are the `INSERT, UPDATE`, and `DELETE` commands as described in [INSERT](../../04_basic_statements/#insert), [UPDATE](../../04_basic_statements/#update), and [DELETE](../../04_basic_statements/#delete), respectively. If a single collection is specified, then `collection` may be a collection of a single field, or it may be a collection of a record type. If more than one collection is specified, then each `collection` must consist of a single field. The expressions following the `RETURNING` keyword must match in number, order, and type-compatibility all fields in the target collections. If `*` is specified, then all columns in the affected table are returned. (Note that the use of `*` is an Advanced Server extension and is not compatible with Oracle databases.)
+`insert, update`, and `delete` are the `INSERT, UPDATE`, and `DELETE` commands as described in [INSERT](../../04_basic_statements/03_insert/#insert), [UPDATE](../../04_basic_statements/07_update/#update), and [DELETE](../../04_basic_statements/02_delete/#delete), respectively. If a single collection is specified, then `collection` may be a collection of a single field, or it may be a collection of a record type. If more than one collection is specified, then each `collection` must consist of a single field. The expressions following the `RETURNING` keyword must match in number, order, and type-compatibility all fields in the target collections. If `*` is specified, then all columns in the affected table are returned. (Note that the use of `*` is an Advanced Server extension and is not compatible with Oracle databases.)
 
 The `clerkemp` table created by copying the `emp` table is used in the remaining examples in this section as shown below.
 
-``` text
+```text
 CREATE TABLE clerkemp AS SELECT * FROM emp WHERE job = 'CLERK';
 
 SELECT * FROM clerkemp;
@@ -34,7 +33,7 @@ SELECT * FROM clerkemp;
 
 The following example increases everyone’s salary by 1.5, stores the employees’ numbers, names, and new salaries in three associative arrays, and finally, displays the contents of these arrays.
 
-``` text
+```text
 DECLARE
     TYPE empno_tbl IS TABLE OF emp.empno%TYPE INDEX BY BINARY_INTEGER;
     TYPE ename_tbl IS TABLE OF emp.ename%TYPE INDEX BY BINARY_INTEGER;
@@ -63,7 +62,7 @@ EMPNO  ENAME      SAL
 
 The following example performs the same functionality as the previous example, but uses a single collection defined with a record type to store the employees’ numbers, names, and new salaries.
 
-``` text
+```text
 DECLARE
     TYPE emp_rec IS RECORD (
         empno       emp.empno%TYPE,
@@ -94,7 +93,7 @@ EMPNO  ENAME      SAL
 
 The following example deletes all rows from the `clerkemp` table, and returns information on the deleted rows into an associative array, which is then displayed.
 
-``` text
+```text
 DECLARE
     TYPE emp_rec IS RECORD (
         empno       emp.empno%TYPE,

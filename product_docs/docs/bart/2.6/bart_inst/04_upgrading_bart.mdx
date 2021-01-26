@@ -4,10 +4,9 @@ title: "Upgrading BART"
 
 <div id="upgrade" class="registered_link"></div>
 
-
 This section outlines the process of upgrading BART from an existing version to the latest version.
 
--   [Upgrading from BART 2.0](#upgrading_from_bart_2_0) describes the upgrade process from BART 2.0 to the latest version.
+-   [Upgrading from BART 2.0](#upgrading-from-bart-20) describes the upgrade process from BART 2.0 to the latest version.
 -   <span class="title-ref">Upgrading from Older Versions of BART (except 2.0) &lt;upgrading\_from\_older\_versions\_(except\_2.0)\_to\_latest\_versions\_of\_bart&gt;</span> describes the upgrade process from previous BART versions (except 2.0) to the latest version.
 
 **Upgrade Restrictions**
@@ -25,7 +24,7 @@ Perform the following steps to upgrade from older versions of BART (except 2.0) 
 
 **Step 1:** Assume the identity of the BART user account and invoke the following command to stop the BART WAL scanner program (`bart-scanner`):
 
-> ``` text
+> ```text
 > bart-scanner STOP
 > ```
 
@@ -35,13 +34,13 @@ Perform the following steps to upgrade from older versions of BART (except 2.0) 
 
     On CentOS 6 and 7:
 
-    ``` text
+    ```text
     yum upgrade edb-bart
     ```
 
     You can also use a downloaded RPM package file to upgrade. To use a downloaded BART RPM package file to upgrade, use the `yum` command, specifying the complete RPM package file name:
 
-    ``` text
+    ```text
     yum upgrade edb-bart-2.6 rhel7.x86_64.rpm
     ```
 
@@ -74,7 +73,7 @@ After upgrading to the latest BART version, you must take a new full backup of y
 
 Perform the following steps to upgrade BART 2.0 to the latest version of BART:
 
-**Step 1:** Install the latest version of BART. For information about how to install, see [installing BART](#installing_bart_using_an_rpm_package).
+**Step 1:** Install the latest version of BART. For information about how to install, see [installing BART](02_installing_bart/#installing_bart_using_an_rpm_package).
 
 **Step 2:** Save a copy of your BART 2.0 configuration file. The default location of the BART 2.0 configuration file is `/usr/edb/bart2.0/etc/bart.cfg`.
 
@@ -82,7 +81,7 @@ Perform the following steps to upgrade BART 2.0 to the latest version of BART:
 
 > On CentOS 6 and 7:
 >
-> ``` text
+> ```text
 > yum remove edb-bart20
 > ```
 

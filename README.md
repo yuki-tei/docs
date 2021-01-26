@@ -7,17 +7,20 @@
 This repo contains the Gatsby application that powers EDB's documentation website, as well as the advocacy content. The site pulls additional content from other repos, in a process called 'sourcing'.
 
 ## Installation
-1. Clone the repo!
-2. (MacOS) Install the [homebrew package manager](https://brew.sh/), if it's not already installed.
-3. Install Node.js. We're currently using Node.js version 12. To install this version, first install `nvm` (Node Version Manager). This can be done with (MacOS) `brew install nvm`, followed by `nvm install`. Optionally, you can skip installing `nvm` and install Node.js 12 directly if you prefer.
-4. Install Python 3.6 or higher (this is not needed for the core system, but is required by several source scripts)
-5. Install yarn and gatsby with `npm i -g gatsby-cli` and `npm i -g yarn`
-6. Install all required packages with `yarn`
+1. (MacOS) Install the [homebrew package manager](https://brew.sh/), if it's not already installed.
+2. Clone the repo with GitHub desktop, or on the command line with `git clone https://github.com/EnterpriseDB/docs.git`. If you do not have git installed, install it with (MacOS) `brew install git`.
+    - If you have not set up your local git with GitHub, you may want to setup an SSH key on your computer to authenticate you to GitHub. See [GitHub's SSH Docs](https://docs.github.com/en/github-ae@latest/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent) for help doing that!
+3. Install Node.js. We're currently using Node.js version 14, the long term support (LTS) release. You can install the latest version 14 LTS release at [nodejs.org](https://nodejs.org/en/download/).
+    - You can verify your node version by running `node -v` in the project directory.
+    - If you want a simpler way to manage multiple versions of node, you can use Node Version Manager (AKA nvm) to install the version docs requires. Follow the directions [here](https://github.com/nvm-sh/nvm#installing-and-updating) to install NVM. Then run `nvm install` in the project directory, followed by `nvm use` to use the version specified in the project's `.nvmrc` file.
+4. Ensure you have Python 3.6 or higher by running `python3 -V`. This should return a version number. If your version is less than 3.6, or you get an error, install Python with (MacOS) `brew install python3`. Python is not needed for the core Gatsby system, but is required by several source scripts.
+5. Install yarn and gatsby with `npm i -g gatsby-cli` and `npm i -g yarn`. Gatsby is the software that runs the docs site, and Yarn is an alternative package manager which will replace `npm` for this project.
+6. Install all required packages by simply running `yarn`.
 7. Pull the shared icon files down with `git submodule update --init`
 8. Select sources with `yarn config-sources`, running `yarn pull-sources` as part of this process if prompted (see section below for details)
-10. Run the site locally with `yarn develop`. The site should now be running at `http://localhost:8000/`!
+9. Run the site locally with `yarn develop`. The site should now be running at `http://localhost:8000/`!
 
-## Running Without a Local Installation
+## Running Without a Local Installation (Recommended for Windows)
 
 If you wish to work with Docs without installing the prerequesites locally, you can do so from within a Docker container using VSCode. See: [Working on Docs in a Docker container using VSCode](README_DOCKER_VSCODE.md)
 
@@ -41,7 +44,7 @@ Alternatively, you can setup your `dev-sources.json` file manually by copying `d
 If you select an "external" source, you will be prompted to run the next command, `yarn pull-sources`, to download and load this content from the internet.
 
 #### `yarn pull-sources`
-Use this command to pull down all the sources you have specified in your `dev-sources.json` file. **This will wipe all external sources**, so make sure you do not have any local changes to these files that you want to save! The `/advocacy_docs` and `/product_docs` folders will not be affected.
+Use this command to pull down all the sources you have specified in your `dev-sources.json` file. **This will wipe all external sources**, so make sure you do not have any local changes to these files (in the `external_sources` subdirectory) that you want to save! The `/advocacy_docs` and `/product_docs` folders will not be affected.
 
 ### Types of Sources
 

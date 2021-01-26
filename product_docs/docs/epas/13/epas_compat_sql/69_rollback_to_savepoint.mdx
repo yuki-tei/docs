@@ -4,14 +4,13 @@ title: "ROLLBACK TO SAVEPOINT"
 
 <div id="rollback_to_savepoint" class="registered_link"></div>
 
-
 **Name**
 
 `ROLLBACK TO SAVEPOINT --` roll back to a savepoint
 
 **Synopsis**
 
-``` text
+```text
 ROLLBACK [ WORK ] TO [ SAVEPOINT ] <savepoint_name>
 ```
 
@@ -37,7 +36,7 @@ Specifying a savepoint name that has not been established is an error.
 
 To undo the effects of the commands executed savepoint `depts` was established:
 
-``` text
+```text
 \set AUTOCOMMIT off
 INSERT INTO dept VALUES (50, 'HR', 'NEW YORK');
 SAVEPOINT depts;
@@ -48,4 +47,4 @@ ROLLBACK TO SAVEPOINT depts;
 
 **See Also**
 
-[COMMIT](06_transaction_control/#commit), [ROLLBACK](06_transaction_control/#rollback), [SAVEPOINT](#savepoint)
+[COMMIT](19_commit/#commit), [ROLLBACK](68_rollback/#rollback), [SAVEPOINT](70_savepoint/#savepoint)

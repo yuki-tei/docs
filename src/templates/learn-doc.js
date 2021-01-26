@@ -73,19 +73,22 @@ const Tiles = ({ mdx, navLinks }) => {
   return null;
 };
 
-const LearnDocTemplate = ({ data, pageContext, path: pagePath }) => {
+const LearnDocTemplate = ({ data, pageContext }) => {
   const { mdx } = data;
   const { mtime } = mdx.fields;
   const {
+    pagePath,
     navLinks,
     githubFileLink,
     githubEditLink,
     githubIssuesLink,
+    isIndexPage,
   } = pageContext;
   const pageMeta = {
     title: mdx.frontmatter.title,
     description: mdx.frontmatter.description,
-    path: mdx.fields.path,
+    path: pagePath,
+    isIndexPage: isIndexPage,
   };
 
   const showToc = !!mdx.tableOfContents.items;

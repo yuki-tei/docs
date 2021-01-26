@@ -182,16 +182,18 @@ const FeedbackDropdown = ({ githubIssuesLink }) => (
   </DropdownButton>
 );
 
-const DocTemplate = ({ data, pageContext, path: pagePath }) => {
+const DocTemplate = ({ data, pageContext }) => {
   const { fields, frontmatter, body, tableOfContents } = data.mdx;
   const { path, mtime } = fields;
   const depth = path.split('/').length;
   const {
+    pagePath,
     navLinks,
     versions,
     githubFileLink,
     githubEditLink,
     githubIssuesLink,
+    isIndexPage,
   } = pageContext;
   const versionArray = makeVersionArray(versions, path);
   const { product, version } = getProductAndVersion(path);
@@ -202,6 +204,7 @@ const DocTemplate = ({ data, pageContext, path: pagePath }) => {
     title: frontmatter.title,
     description: frontmatter.description,
     path: pagePath,
+    isIndexPage: isIndexPage,
     canonicalPath: determineCanonicalPath(
       !!data.potentialLatest,
       pageContext.potentialLatestPath,

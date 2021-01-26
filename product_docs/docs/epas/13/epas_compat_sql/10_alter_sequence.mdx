@@ -4,14 +4,13 @@ title: "ALTER SEQUENCE"
 
 <div id="alter_sequence" class="registered_link"></div>
 
-
 **Name**
 
 `ALTER SEQUENCE --`  change the definition of a sequence generator
 
 **Synopsis**
 
-``` text
+```text
 ALTER SEQUENCE <name> [ INCREMENT BY <increment> ]
   [ MINVALUE <minvalue> ] [ MAXVALUE <maxvalue> ]
   [ CACHE <cache> | NOCACHE ] [ CYCLE ]
@@ -57,10 +56,10 @@ To avoid blocking of concurrent transactions that obtain numbers from the same s
 
 Change the increment and cache value of sequence, `serial`.
 
-``` text
+```text
 ALTER SEQUENCE serial INCREMENT BY 2 CACHE 5;
 ```
 
 **See Also**
 
-[CREATE SEQUENCE](#create_sequence), [DROP SEQUENCE](#drop_sequence)
+[CREATE SEQUENCE](34_create_sequence/#create_sequence), [DROP SEQUENCE](56_drop_sequence/#drop_sequence)

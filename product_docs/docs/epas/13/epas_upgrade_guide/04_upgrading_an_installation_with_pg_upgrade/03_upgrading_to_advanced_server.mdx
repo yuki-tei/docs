@@ -2,13 +2,11 @@
 title: "Upgrading to Advanced Server 13"
 ---
 
-
-
 You can use `pg_upgrade` to upgrade from an existing installation of Advanced Server into the cluster built by the Advanced Server 13 installer or into an alternate cluster created using the `initdb` command. In this section, we will provide the details of upgrading into the cluster provided by the installer.
 
 The basic steps to perform an upgrade into an empty cluster created with the `initdb` command are the same as the steps to upgrade into the cluster created by the Advanced Server 13 installer, but you can omit Step 2 `(Empty the edb database)`, and substitute the location of the alternate cluster when specifying a target cluster for the upgrade.
 
-If a problem occurs during the upgrade process, you can revert to the previous version. See [Reverting to the old cluster](../04_upgrading_an_installation_with_pg_upgrade/#reverting_to_the_old_cluster) Section for detailed information about this process.
+If a problem occurs during the upgrade process, you can revert to the previous version. See [Reverting to the old cluster](06_reverting_to_the_old_cluster/#reverting_to_the_old_cluster) Section for detailed information about this process.
 
 You must be an operating system superuser or Windows Administrator to perform an Advanced Server upgrade.
 
@@ -26,13 +24,13 @@ On Windows, navigate through the `Control Panel` to the `Services` manager; high
 
 On Linux, open a terminal window, assume superuser privileges, and manually stop each service; for example, if you are on Linux 6.x, invoke the following command to stop the pgAgent service:
 
-``` text
+```text
 service edb-pgagent-13 stop
 ```
 
 After stopping any services that are currently connected to Advanced Server, you can use the EDB-PSQL command line client to drop and create a database. When the client opens, connect to the `template1` database as the database superuser; if prompted, provide authentication information. Then, use the following command to drop your database:
 
-``` text
+```text
 DROP DATABASE <database_name>;
 ```
 
@@ -40,7 +38,7 @@ Where `database_name` is the name of the database.
 
 Then, create an empty database based on the contents of the `template1` database.
 
-``` text
+```text
 CREATE DATABASE <database_name>;
 ```
 
@@ -52,11 +50,13 @@ You must allow trust authentication for the previous Advanced Server installatio
 
 ![Configuring Advanced Server to use trust authentication.](../images/configuring_advanced_server_to_use_trust_authentication.png)
 
+Fig. 1: *Configuring Advanced Server to use trust authentication.*
+
 After editing each file, save the file and exit the editor.
 
 If the system is required to maintain `md5` authentication mode during the upgrade process, you can specify user passwords for the database superuser in a password file (`pgpass.conf` on Windows, `.pgpass` on Linux). For more information about configuring a password file, see the PostgreSQL Core Documentation, available at:
 
-> <https://www.postgresql.org/docs/current/static/libpq-pgpass.html>
+<https://www.postgresql.org/docs/current/static/libpq-pgpass.html>
 
 **Step 4 - Stop All Component Services and Servers**
 
@@ -65,7 +65,7 @@ Before you invoke `pg_upgrade`, you must stop any services that belong to the or
 The services that are most likely to be running in your installation are:
 
 | **Service:**                                   | **On Linux:**                          | **On Windows:**                                            |
-|------------------------------------------------|----------------------------------------|------------------------------------------------------------|
+| ---------------------------------------------- | -------------------------------------- | ---------------------------------------------------------- |
 | Postgres Plus Advanced Server 9.0              | ppas-9.0                               | ppas-9.0                                                   |
 | Postgres Plus Advanced Server 9.1              | ppas-9.1                               | ppas-9.1                                                   |
 | Postgres Plus Advanced Server 9.2              | ppas-9.2                               | ppas-9.2                                                   |
@@ -126,19 +126,19 @@ Open a terminal window and manually stop each service at the command line.
 
 If you are using Linux, assume the identity of the Advanced Server cluster owner. (The following example assumes Advanced Server was installed in the default, compatibility with Oracle database mode, thus assigning `enterprisedb` as the cluster owner. If installed in compatibility with PostgreSQL database mode, `postgres` is the cluster owner.)
 
-``` text
+```text
 su - enterprisedb
 ```
 
 Enter the Advanced Server cluster owner password if prompted. Then, set the path to include the location of the `pg_upgrade` executable:
 
-``` text
+```text
 export PATH=$PATH:/usr/edb/as13/bin
 ```
 
 During the upgrade process, `pg_upgrade` writes a file to the current working directory of the `enterprisedb` user; you must invoke `pg_upgrade` from a directory where the `enterprisedb` user has `write` privileges. After performing the above commands, navigate to a directory in which the `enterprisedb` user has sufficient privileges to write a file.
 
-``` text
+```text
 cd /tmp
 ```
 
@@ -150,14 +150,14 @@ If you are using Windows, open a terminal window, assume the identity of the Adv
 
 If the `--serviceaccount service_account_user` parameter was specified during the initial installation of Advanced Server, then `service_account_user` is the Advanced Server cluster owner and is the user to be given with the `RUNAS` command.
 
-``` text
+```text
 RUNAS /USER:service_account_user "CMD.EXE"
 SET PATH=%PATH%;C:\Program Files\edb\as13\bin
 ```
 
 During the upgrade process, `pg_upgrade` writes a file to the current working directory of the service account user; you must invoke `pg_upgrade` from a directory where the service account user has `write` privileges. After performing the above commands, navigate to a directory in which the service account user has sufficient privileges to write a file.
 
-``` text
+```text
 cd %TEMP%
 ```
 
@@ -171,18 +171,18 @@ Under this circumstance a Windows utility program named `PsExec` must be used to
 
 The `PsExec` program must be obtained by downloading `PsTools`, which is available at the following site:
 
-> <https://technet.microsoft.com/en-us/sysinternals/bb897553.aspx>.
+<https://technet.microsoft.com/en-us/sysinternals/bb897553.aspx>.
 
 You can then use the following command to run `CMD.EXE` as `NT AUTHORITY\NetworkService`, and then set the path to the `pg_upgrade` executable.
 
-``` text
+```text
 psexec.exe -u "NT AUTHORITY\NetworkService" CMD.EXE
 SET PATH=%PATH%;C:\Program Files\edb\as13\bin
 ```
 
 During the upgrade process, `pg_upgrade` writes a file to the current working directory of the service account user; you must invoke `pg_upgrade` from a directory where the service account user has `write` privileges. After performing the above commands, navigate to a directory in which the service account user has sufficient privileges to write a file.
 
-``` text
+```text
 cd %TEMP%
 ```
 
@@ -194,7 +194,7 @@ Before attempting an upgrade, perform a consistency check to assure that the old
 
 The following example demonstrates invoking `pg_upgrade` to perform a consistency check on Linux:
 
-``` text
+```text
 pg_upgrade -d /var/lib/edb/as12/data
 -D /var/lib/edb/as13/data -U enterprisedb
 -b /usr/edb/as12/bin -B /usr/edb/as13/bin -p 5444 -P 5445 --check
@@ -204,7 +204,7 @@ If the command is successful, it will return `*Clusters are compatible*`.
 
 If you are using Windows, you must quote any directory names that contain a space:
 
-``` text
+```text
 pg_upgrade.exe
 -d "C:\Program Files\ PostgresPlus\12AS\data"
 -D "C:\Program Files\edb\as13\data" -U enterprisedb
@@ -218,13 +218,13 @@ If `pg_upgrade` alerts you to a missing component, you can use StackBuilder Plus
 
 When `pg_upgrade` has confirmed that the clusters are compatible, you can perform a version upgrade.
 
-**Step 7 - Run pg\_upgrade**
+**Step 7 - Run pg_upgrade**
 
 After confirming that the clusters are compatible, you can invoke `pg_upgrade` to upgrade the old cluster to the new version of Advanced Server.
 
 On Linux:
 
-``` text
+```text
 pg_upgrade -d /var/lib/edb/as12/data
 -D /var/lib/edb/as13/data -U enterprisedb
 -b /usr/edb/as12/bin -B /usr/edb/as13/bin -p 5444 -P 5445
@@ -232,7 +232,7 @@ pg_upgrade -d /var/lib/edb/as12/data
 
 On Windows:
 
-``` text
+```text
 pg_upgrade.exe -d "C:\Program Files\PostgresPlus\12AS\data"
 -D "C:\Program Files\edb\as13\data" -U enterprisedb
 -b "C:\Program Files\PostgresPlus\12AS\bin"
@@ -241,7 +241,7 @@ pg_upgrade.exe -d "C:\Program Files\PostgresPlus\12AS\data"
 
 `pg_upgrade` will display the progress of the upgrade onscreen:
 
-``` text
+```text
 $ pg_upgrade -d /var/lib/edb/as12/data -D /var/lib/edb/as13/data -U
 enterprisedb -b /usr/edb/as12/bin -B /usr/edb/as13/bin -p 5444 -P 5445
 Performing Consistency Checks
@@ -293,7 +293,7 @@ While `pg_upgrade` runs, it may generate SQL scripts that handle special circums
 
 You must invoke the scripts after `pg_upgrade` completes. To invoke the scripts, connect to the new cluster as a database superuser with the EDB-PSQL command line client, and invoke each script using the `\i` option:
 
-``` text
+```text
 \i complete_path_to_script/script.sql
 ```
 
@@ -310,19 +310,9 @@ After performing these steps, resolve any upgrade conflicts encountered before a
 
 When the upgrade is complete, `pg_upgrade` may also recommend vacuuming the new cluster, and will provide a script that allows you to delete the old cluster.
 
-<div class="note">
+**Note**: Before removing the old cluster, ensure that the cluster has been upgraded as expected, and that you have preserved a backup of the cluster in case you need to revert to a previous version.
 
-<div class="title">
-
-Note
-
-</div>
-
-Before removing the old cluster, ensure that the cluster has been upgraded as expected, and that you have preserved a backup of the cluster in case you need to revert to a previous version.
-
-</div>
-
-**Step 8 - Restore the authentication settings in the pg\_hba.conf file**
+**Step 8 - Restore the authentication settings in the pg_hba.conf file**
 
 If you modified the `pg_hba.conf` file to permit `trust` authentication, update the contents of the `pg_hba.conf` file to reflect your preferred authentication settings.
 

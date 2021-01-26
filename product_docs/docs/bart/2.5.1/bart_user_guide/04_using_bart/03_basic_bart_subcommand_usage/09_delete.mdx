@@ -4,16 +4,17 @@ title: "DELETE"
 
 <div id="delete" class="registered_link"></div>
 
-
 The `DELETE` subcommand removes the subdirectory and data files from the BART backup catalog for the specified backups along with its archived WAL files. To view examples of how to use the `DELETE` subcommand, see the *EDB Postgres Backup and Recovery Reference Guide*.
 
 **Syntax:**
 
-    bart DELETE –s <server_name>
-      -i { all |
-           [']{ <backup_id> | <backup_name> },... }[']
-         }
-      [ -n ]
+```
+bart DELETE –s <server_name>
+  -i { all |
+       [']{ <backup_id> | <backup_name> },... }[']
+     }
+  [ -n ]
+```
 
 <div class="note">
 
@@ -27,7 +28,7 @@ While invoking the `DELETE` subcommand, you must specify a specific database ser
 
 </div>
 
-For database servers under a retention policy, there are conditions where certain backups may not be deleted. See the [Section Deletions Permitted Under a Retention Policy](../../04_using_bart/02_managing_backups_using_a_retention_policy/#deletions_permitted_under_retention_policy) for information regarding permitted backup deletions.
+For database servers under a retention policy, there are conditions where certain backups may not be deleted. See the [Section Deletions Permitted Under a Retention Policy](../02_managing_backups_using_a_retention_policy/04_managing_the_backups_based_on_the_retention_policy/#deletions_permitted_under_retention_policy) for information regarding permitted backup deletions.
 
 **Options**
 

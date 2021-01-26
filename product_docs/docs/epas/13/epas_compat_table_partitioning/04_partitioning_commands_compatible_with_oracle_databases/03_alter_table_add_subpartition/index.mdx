@@ -4,10 +4,9 @@ title: "ALTER TABLE...ADD SUBPARTITION"
 
 <div id="alter_table_add_subpartition" class="registered_link"></div>
 
-
 The `ALTER TABLE… ADD SUBPARTITION` command adds a subpartition to an existing subpartitioned partition. The syntax is:
 
-``` text
+```text
 ALTER TABLE <table_name> MODIFY PARTITION <partition_name>
       ADD SUBPARTITION <subpartition_definition>;
 
@@ -66,7 +65,7 @@ To use the `ALTER TABLE... ADD SUBPARTITION` command you must be the table owner
 
 > Use `value` to specify a quoted literal value (or comma-delimited list of literal values) by which table entries will be grouped into partitions. Each partitioning rule must specify at least one value, but there is no limit placed on the number of values specified within a rule. `value` may also be `NULL, DEFAULT` (if specifying a `LIST` partition), or `MAXVALUE` (if specifying a `RANGE` partition).
 >
-> For information about creating a `DEFAULT` or `MAXVALUE` partition, see [Handling Stray Values in a LIST or RANGE Partitioned Table](../#handling_stray_values_in_a_list_or_range_partitioned_table).
+> For information about creating a `DEFAULT` or `MAXVALUE` partition, see [Handling Stray Values in a LIST or RANGE Partitioned Table](../../05_handling_stray_values_in_a_list_or_range_partitioned_table/#handling_stray_values_in_a_list_or_range_partitioned_table).
 
 `tablespace_name`
 
@@ -74,6 +73,6 @@ To use the `ALTER TABLE... ADD SUBPARTITION` command you must be the table owner
 
 <div class="toctree" maxdepth="3">
 
-example\_adding\_a\_subpartition\_to\_a\_list\_range\_partitioned\_table example\_adding\_a\_subpartition\_to\_a\_range\_list\_partitioned\_table
+example_adding_a_subpartition_to_a_list_range_partitioned_table example_adding_a_subpartition_to_a_range_list_partitioned_table
 
 </div>
