@@ -34,11 +34,16 @@ def determine_url_scheme(url):
   else:
     return 'new'
 
+def build_latest_url(url):
+  latest_url = re.sub(r'\/\d+(\.?\d+)*($|\/)', '/latest/', url)
+  if latest_url.endswith('/'): # if version was at the end, like the product index pages
+    latest_url = latest_url[:-1]
+  return latest_url
+
 def add_urls_to_output(url, path, output, isLatestVersion):
   output[str(path)].append(url);
-  # if isLatestVersion:
-    # convert url to latest url
-    # output[str(path)].append()
+  if isLatestVersion:
+    output[str(path)].append(build_latest_url(url))
 
 def write_redirects_to_mdx_files(output):
   for filepath, redirects in output.items():
