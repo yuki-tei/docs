@@ -50,6 +50,7 @@
   },
   "EDB Postgres Advanced Server": {
     "folder_name": "epas",
+    "latest": "13",
     "subfolders": {
       "13": {
         "installation-getting-started/installation-guide-for-linux": "epas_inst_linux",

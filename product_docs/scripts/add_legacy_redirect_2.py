@@ -34,6 +34,12 @@ def determine_url_scheme(url):
   else:
     return 'new'
 
+def add_urls_to_output(url, path, output, isLatestVersion):
+  output[str(path)].append(url);
+  # if isLatestVersion:
+    # convert url to latest url
+    # output[str(path)].append()
+
 def write_redirects_to_mdx_files(output):
   for filepath, redirects in output.items():
     in_frontmatter = False
@@ -174,6 +180,8 @@ for product in legacy_urls_by_product_version.keys():
       no_metadata[product].append(version)
       continue
 
+    is_latest_version = version == metadata.get("latest")
+
     docs_path = 'product_docs/docs/{0}/{1}'.format(metadata['folder_name'], version)
     if not os.path.exists(docs_path):
       # version does not match a version we have
@@ -184,7 +192,7 @@ for product in legacy_urls_by_product_version.keys():
       url = legacy_page['url']
 
       if '/latest/' in url:
-        # skip latest urls
+        # skip latest urls if they appear, we'll handle those separately
         continue
 
       url_scheme = determine_url_scheme(url)
@@ -194,12 +202,11 @@ for product in legacy_urls_by_product_version.keys():
       if is_product_index:
         index_path = determine_root_mdx_file(docs_path)
         if index_path:
-          output[index_path].append(url)
+          # output[index_path].append(url)
+          add_urls_to_output(url, index_path, output, is_latest_version)
           processed_count += 1
           matched_count += 1
-          break
-
-      # look at edb-docs/d/edb-postgres-mysql-data-adapter/user-guides/user-guide/2.5.5/architecture_overview.html
+          continue
 
       legacy_folder = '/'.join(url.split('/')[6:8])
       mdx_folder = metadata['subfolders'].get(version)
@@ -253,7 +260,8 @@ for product in legacy_urls_by_product_version.keys():
           mdx_page_filename = re.sub(r'^\d*_', '', mdx_page_filename.replace('.mdx', ''))
 
           if legacy_page_filename == mdx_page_filename:
-            output[str(filename)].append(url)
+            # output[str(filename)].append(url)
+            add_urls_to_output(url, filename, output, is_latest_version)
             matched_count += 1
             match_found = True
             break # TODO handle duplicate url bug that affects some "new" style urls
@@ -262,7 +270,8 @@ for product in legacy_urls_by_product_version.keys():
         if legacy_page_filename in NEW_URLS_REMOVED_FILES:
           index_path = determine_root_mdx_file(docs_path, mdx_folder)
           if index_path:
-            output[index_path].append(url)
+            # output[index_path].append(url)
+            add_urls_to_output(url, index_path, output, is_latest_version)
             matched_count += 1
             match_found = True
 
@@ -339,5 +348,5 @@ for path in Path('product_docs/docs').rglob('*.mdx'):
 
 print("wrote to {0} of {1} mdx files".format(len(output.keys()), mdx_file_count))
 
-
+print("")
 print_csv_report(new_failed_to_match)
