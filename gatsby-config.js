@@ -356,9 +356,11 @@ module.exports = {
         },
         gatsbyRemarkPlugins: [
           {
-            resolve: process.env.OPTIMIZE_IMAGES
-              ? 'gatsby-remark-images'
-              : 'gatsby-remark-static-images',
+            resolve: 'gatsby-remark-images',
+            options: {
+              linkImagesToOriginal: false,
+              showCaptions: true,
+            },
           },
           {
             resolve: `gatsby-remark-autolink-headers`,
