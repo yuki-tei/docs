@@ -10,7 +10,7 @@ import {
   TopBar,
 } from '../components';
 
-export default () => (
+const Page = () => (
   <Layout
     pageMeta={{
       description:
@@ -364,3 +364,5 @@ export default () => (
     </Container>
   </Layout>
 );
+
+export default Page;
