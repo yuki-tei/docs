@@ -297,12 +297,14 @@ module.exports = {
     algoliaIndex: algoliaIndex,
     cacheBuster: 2, // for busting gh actions cache if needed
   },
+  flags: {
+    FAST_REFRESH: true,
+  },
   plugins: [
     'gatsby-plugin-sass',
     'gatsby-plugin-react-helmet',
     'gatsby-transformer-sharp',
     'gatsby-transformer-json',
-    'gatsby-plugin-catch-links',
     'gatsby-plugin-sharp',
     'gatsby-plugin-meta-redirect',
     {
@@ -313,7 +315,6 @@ module.exports = {
         },
       },
     },
-    // 'gatsby-plugin-remove-fingerprints', // speeds up Netlify, see https://github.com/narative/gatsby-plugin-remove-fingerprints
     'gatsby-plugin-sitemap',
     {
       resolve: `gatsby-plugin-manifest`,
