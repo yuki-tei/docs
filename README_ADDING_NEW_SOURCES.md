@@ -93,9 +93,9 @@ If the source requires something different than previous sources have, or if the
 
 If you are bringing in an external source, you will need to write scripts that download your source, and convert it to the necessary format for your chosen source type. This will require creating `source_[SOURCE_NAME].py` script in `scripts/source`, and connecting it to `pull_sources.py`. Your sourcing script needs to accomplish everything necessary for Gatsby to load the files successfully, including format translation and any other necessary changes.
 
-## 4. Update the Index Navigation
+## 4. Update the Index Page
 
-The navigation links on the side of the index page will need to be updated to link to your new source. Within `src/constants/index-navigation.js`, you'll need to edit the `rawIndexNavigation` json to add your source. The structure should be fairly apparent. If your source is configurable (IE it's not an Advocacy Doc), you should set the `source` key equal to whatever your source name is. This will tell Gatsby to only should this link if your source is loaded.
+The links on the index page can be updated at `pages/index.js`.
 
 ## 5. You're Hopefully Done!
 

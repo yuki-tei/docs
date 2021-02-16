@@ -294,7 +294,6 @@ const createGHDoc = (doc, gh_docs, actions) => {
   if (doc.fields.path.includes('barman')) {
     githubLink = 'https://github.com/2ndquadrant-it/barman';
   }
-  const showGithubLink = !doc.fields.path.includes('pgbackrest');
 
   const navLinks = gh_docs.filter(
     (node) => node.fields.topic === doc.fields.topic,
@@ -319,8 +318,8 @@ const createGHDoc = (doc, gh_docs, actions) => {
       frontmatter: doc.frontmatter,
       pagePath: doc.fields.path,
       navLinks: navLinks,
-      githubFileLink: showGithubLink ? githubFileLink : null,
-      githubFileHistoryLink: showGithubLink ? githubFileHistoryLink : null,
+      githubFileLink: githubFileLink,
+      githubFileHistoryLink: githubFileHistoryLink,
       isIndexPage: isIndexPage,
     },
   });

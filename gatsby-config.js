@@ -62,7 +62,6 @@ const sourceToPluginConfig = {
 
   k8s_docs: { name: 'k8s_docs', path: 'external_sources/k8s_docs' },
   barman: { name: 'barman', path: 'external_sources/barman/doc/manual' },
-  pgbackrest: { name: 'pgbackrest', path: 'external_sources/pgbackrest/docs' },
 };
 
 const externalSourcePlugins = () => {
