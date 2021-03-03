@@ -274,6 +274,7 @@ const createAdvocacy = (navTree, prevNext, doc, learn, actions) => {
   // configure legacy redirects
   configureLegacyRedirects({
     toPath: doc.fields.path,
+    toLatestPath: doc.fields.path,
     redirects: (doc.frontmatter.legacyRedirects || []).concat(
       doc.frontmatter.legacyRedirectsGenerated || [],
     ),
