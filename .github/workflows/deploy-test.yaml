@@ -48,7 +48,7 @@ jobs:
         ALGOLIA_API_KEY: ${{ secrets.ALGOLIA_API_KEY }}
         ALGOLIA_APP_ID: ${{ secrets.ALGOLIA_APP_ID }}
         ALGOLIA_INDEX_NAME: edb-docs-staging
-        GTM_ID: GTM-M2WQMGG
+        GTM_ID: GTM-5W8M67
 
     - name: Netlify deploy
       run: |
