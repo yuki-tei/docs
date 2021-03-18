@@ -11,6 +11,7 @@ ANSI_RED = '\033[31m'
 PRODUCT_DOCS = [
     'ark',
     'bart',
+    'bdr',
     'efm',
     'epas',
     'eprs',
@@ -58,6 +59,7 @@ OPTIONS = [
     { 'index': '1r', 'name': 'MySQL Data Adapter', 'key': 'mysql_data_adapter', 'indent': True },
     { 'index': '1s', 'name': 'Replication Server', 'key': 'eprs', 'indent': True },
     { 'index': 2, 'name': 'Kubernetes Docs', 'key': 'k8s_docs', 'external': True },
+    { 'index': '2a', 'name': 'BDR Docs', 'key': 'bdr', 'indent': True },
 ]
 
 print('Which sources would you like loaded when you run `yarn develop`?')

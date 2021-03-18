@@ -5,8 +5,34 @@ directoryDefaults:
 ---
 
 # About BDR 3
-**Postgres-BDR (Bi-Directional Replication for PostgreSQL)** is a ground-breaking multi-master replication tool for PostgreSQL databases that has been in full production status since 2014. In the complex environment of replication, the 3rd generation of BDR achieves efficiency and accuracy, ensuring very high availability of all nodes in a geographically distributed cluster.
+**Postgres-BDR (Bi-Directional Replication for PostgreSQL)** is a ground-breaking multi-master replication tool for PostgreSQL databases that has been in full production status since 2014. In the complex environment of replication, the **3rd generation of BDR** achieves efficiency and accuracy, ensuring very high availability of all nodes in a geographically distributed cluster.
 
 BDR version 3 (“BDR3”) is built on the pglogical 3 extension and requires it to be installed in order to work. It also requires PostgreSQL 10 or newer.
-An overview of BDR3, including its features and their benefits, use cases, and deployment options, is available publicly in the Postgres-BDR white paper.
+An overview of BDR3, including its features and their benefits, use cases, and deployment options, is available publicly in the [Postgres-BDR white paper](https://www.2ndquadrant.com/en/resources/postgres-bdr-2ndquadrant/postgres-bdr-download-white-paper-replication-postgresql).
+## Editions
+BDR3 comes in two editions, the Standard Edition which works on PostgreSQL 10+ and the Enterprise Edition which requires 2ndQPostgres 11+ to run. The Enterprise Edition provides some additional features that are useful in more advanced usage scenarios. These are listed in detail on the first page of the docs (in pdf this is after the table-of-contents).
 
+The documentation for the latest stable (3.6 LTS) release is available separately for each edition:
+
+* [BDR3.6 Standard Edition](https://documentation.2ndquadrant.com/bdr3/release/latest-3.6/)
+* [BDR3.6 Enterprise Edition](https://documentation.2ndquadrant.com/bdr3-enterprise/release/latest-3.6/)
+
+The documentation for the newest release (3.7, currently in BETA) is available separately for each edition:
+
+* [BDR3.7 Standard Edition](https://documentation.2ndquadrant.com/bdr3/release/latest/)
+* [BDR3.7 Enterprise Edition](https://documentation.2ndquadrant.com/bdr3-enterprise/release/latest/)
+
+Access to BDR3 packages is managed via the [2ndQuadrant Software Subscriptions](https://access.2ndquadrant.com/kb/a/2ndquadrant-rpm-and-apt-repositories/) system in the Support Portal. The Standard Edition is available in the products/bdr3repository while the Enterprise Edition is part of the products/2ndqpostgres that also contains [2ndQPostgres](https://access.2ndquadrant.com/customer_portal/sw/2ndqpostgres/).
+Additional information about installing BDR 3 is available in the [BDR3 packages and documentation](https://access.2ndquadrant.com/kb/a/bdr3-packages-and-documentation/) article.
+We also provide a [plugin for managing BDR3 using OmniDB](https://omnidb-bdr3-plugin.2ndquadrant.com/downloads/release/).
+
+Trial license
+BDR3 can be tested through a 60-day BDR Trial License agreement. Please get in touch with your account manager for further information.
+Support for BDR 3 is only available via 2ndQuadrant's Diamond Support plan.
+BDR is distributed under 2ndQuadrant Product Usage License
+## Major Releases
+| Major | Latest Minor Release | Released On |
+| ----- | ----- | ----- | -----|
+|[3.7](https://access.2ndquadrant.com/customer_portal/sw/bdr3/0307/)|[BDR v3.7.6](https://access.2ndquadrant.com/customer_portal/sw/bdr3/0307/3_7_6/)|2021-02-23|
+|[3.6](https://access.2ndquadrant.com/customer_portal/sw/bdr3/0306/)|[BDR v3.6.25](https://access.2ndquadrant.com/customer_portal/sw/bdr3/0306/3_6_25/)|2021-02-11|
+ 

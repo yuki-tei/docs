@@ -2,6 +2,7 @@
   "k8s_docs": false,
   "ark": true,
   "bart": true,
+  "bdr": true,
   "efm": true,
   "epas": true,
   "eprs": true,
