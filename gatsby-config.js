@@ -4,6 +4,7 @@ require('dotenv').config({
 const gracefulFs = require('graceful-fs');
 
 const algoliaTransformer = require('./src/constants/algolia-indexing.js');
+const { readFile } = require('./src/constants/gatsby-utils.js');
 
 const ANSI_BLUE = '\033[34m';
 const ANSI_GREEN = '\033[32m';
@@ -263,6 +264,17 @@ module.exports = {
         inputConfigFile: `${__dirname}/static/nginx_redirects.template`,
         outputConfigFile: `${__dirname}/static/nginx_redirects.generated`,
         whereToIncludeRedirects: '', // defaults to: "server"
+      },
+    },
+    {
+      resolve: `gatsby-source-openapi-aggregate`,
+      options: {
+        specs: [
+          {
+            name: 'petstore',
+            resolve: () => readFile(`${__dirname}/api_docs/petstore.json`),
+          },
+        ],
       },
     },
     {

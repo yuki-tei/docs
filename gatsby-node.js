@@ -125,6 +125,12 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
           relativePath
         }
       }
+      allOpenApiSpec {
+        nodes {
+          id
+          name
+        }
+      }
     }
   `);
 
@@ -133,6 +139,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
   }
 
   processFileNodes(result.data.allFile.nodes, actions);
+  processOpenApiNodes(result.data.allOpenApiSpec.nodes, actions);
 
   const { nodes } = result.data.allMdx;
 
@@ -351,6 +358,18 @@ const createAdvocacy = (navTree, prevNext, doc, learn, actions) => {
           title: doc.frontmatter.title,
           description: doc.frontmatter.description,
         },
+      },
+    });
+  });
+};
+
+const processOpenApiNodes = (apiSpecNodes, actions) => {
+  apiSpecNodes.forEach((node) => {
+    actions.createPage({
+      path: `/api/${node.name}`,
+      component: require.resolve('./src/templates/open-api.js'),
+      context: {
+        nodeId: node.id,
       },
     });
   });
