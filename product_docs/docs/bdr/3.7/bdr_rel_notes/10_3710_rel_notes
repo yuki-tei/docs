@@ -4,7 +4,7 @@ title: "Version 3.7.10"
 
 Enhancements, bug fixes, and other changes in BDR 3.7.10 include:
 
-| Type | Description | ID |
+| Type | Summary | ID |
 | ---- | ----------- | -- |
 | Enhancement | Check raft quorum in bdr.monitor_group_raft() (BDR-960) Return "CRITICAL" status in bdr.monitor_group_raft() if at least half of the voting nodes are unreachable. | NA |
 | Enhancement | Allow bdr_monitor role to read additional informational views. | BDR-732 |
