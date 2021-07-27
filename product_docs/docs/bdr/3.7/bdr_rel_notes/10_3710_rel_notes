@@ -1,0 +1,14 @@
+---
+title: "Version 3.7.10"
+---
+
+Enhancements, bug fixes, and other changes in BDR 3.7.10 include:
+
+| Type | Description | ID |
+| ---- | ----------- | -- |
+| Enhancement | Check raft quorum in bdr.monitor_group_raft() (BDR-960) Return "CRITICAL" status in bdr.monitor_group_raft() if at least half of the voting nodes are unreachable. | NA |
+| Enhancement | Allow bdr_monitor role to read additional informational views. | BDR-732 |
+| Enhancement | Add is_decoder_slot to bdr.node_slots to differentiate slots used by the Decoder Worker | NA |
+| Bug Fix | Make the consensus worker always exit if postmaster dies [Support Ticket: RT70024] | BDR-1063 |
+| Bug Fix | Fix starting LSN of Decoding Worker after a restart [Support Ticket: RT71345] | BDR-876 |
+| Bug Fix | Do not synchronize Decoding Worker's replication slot on a physical standby | BDR-738 |
