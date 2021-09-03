@@ -5,15 +5,17 @@ This tool can be used to automatically modify files. This works by opening speci
 ## Usage
 
 In the directory that you'd like to modify files in, run something like the following:
+
 ```
 node fileProcessor/main.mjs -f **/*.md -p dummy
 ```
 
 ### options
-| flag          | alias | description |
-|---------------|-------|-------------|
-| `--files`     | `-f`  | The glob the script uses to look for files.More than one `--files` flag can be passed in, but the processor will only run on files which match all of the globs passed in|
-| `--processor` | `-p`  | The processor to apply to files. The script will look for these in the `processors` directory. More than one processor can be added, and they will be run in the order they are passed in.
+
+| flag          | alias | description                                                                                                                                                                                |
+| ------------- | ----- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `--files`     | `-f`  | The glob the script uses to look for files.More than one `--files` flag can be passed in, but the processor will only run on files which match all of the globs passed in                  |
+| `--processor` | `-p`  | The processor to apply to files. The script will look for these in the `processors` directory. More than one processor can be added, and they will be run in the order they are passed in. |
 
 ## adding new processors
 
