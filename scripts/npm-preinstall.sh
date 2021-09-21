@@ -1,5 +1,4 @@
-#!/bin/sh
-set -x
+#!/bin/env sh
 
 if [ -z "$NPM_TOKEN" ]
 then
