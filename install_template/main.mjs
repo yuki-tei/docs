@@ -15,6 +15,7 @@ const run = async () => {
   const config = yaml.parse(await fs.readFile("config.yaml", "utf8"));
 
   config.products.forEach((product) => {
+    console.log(product.slug);
     product.platforms.forEach((platform) => {
       platform["supported versions"].forEach((version) => {
         renderDoc(product, platform, version);
@@ -156,6 +157,7 @@ const generateContext = (product, platform, version) => {
   return {
     product: {
       name: product.name,
+      slug: product.slug,
       version: version,
     },
     platform: {
@@ -176,7 +178,7 @@ const writeDoc = (template, context) => {
   });
   const filename =
     [
-      formatStringForFile(context.product.name),
+      formatStringForFile(context.product.slug),
       context.product.version,
       formatStringForFile(context.platform.name),
       context.platform.arch,

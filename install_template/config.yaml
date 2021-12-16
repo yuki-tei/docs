@@ -1,5 +1,6 @@
 products:
   - name: EDB Postgres Advanced Server
+    slug: epas
     platforms:
       - name: CentOS 7
         arch: x86_64
