@@ -4,7 +4,7 @@ title: "BASE64_DECODE"
 
 Use the `BASE64_DECODE` function to translate a Base64 encoded string to the original value originally encoded by `BASE64_ENCODE`. The signature is:
 
-```text
+```sql
 BASE64_DECODE (<r> IN RAW)
 ```
 
@@ -20,7 +20,7 @@ This function returns a `RAW` value.
 
 Before executing the following example, invoke the command:
 
-```
+```sql
 SET bytea_output = escape;
 ```
 
@@ -28,16 +28,19 @@ This command instructs the server to escape any non-printable characters, and to
 
 <https://www.postgresql.org/docs/current/static/datatype-binary.html>
 
-The following example first encodes (using `BASE64_ENCODE`), and then decodes (using `BASE64_DECODE`) a string that contains the text `abc:`
+The following example first encodes (using `BASE64_ENCODE`), and then decodes (using `BASE64_DECODE`) a string that contains the sql `abc:`
 
-```text
+```sql
 edb=# SELECT UTL_ENCODE.BASE64_ENCODE(CAST ('abc' AS RAW));
+__OUTPUT__
  base64_encode
 ---------------
  YWJj
 (1 row)
-
+```
+```sql
 edb=# SELECT UTL_ENCODE.BASE64_DECODE(CAST ('YWJj' AS RAW));
+__OUTPUT__
  base64_decode
 ---------------
  abc

@@ -4,7 +4,7 @@ title: "SUBMIT"
 
 The `SUBMIT` procedure creates a job definition and stores it in the database. A job consists of a job identifier, the stored procedure to be executed, when the job is to be first run, and a date function that calculates the next date/time the job is to be run.
 
-```text
+```sql
 SUBMIT(<job> OUT BINARY_INTEGER, <what> VARCHAR2
   [, <next_date> DATE [, <interval> VARCHAR2 [, <no_parse> BOOLEAN ]]])
 ```
@@ -37,7 +37,7 @@ SUBMIT(<job> OUT BINARY_INTEGER, <what> VARCHAR2
 
 The following example creates a job using stored procedure, `job_proc`. The job will execute immediately and run once a day thereafter as set by the `interval` parameter, `SYSDATE + 1`.
 
-```text
+```sql
 DECLARE
     jobid INTEGER;
 BEGIN
@@ -51,9 +51,9 @@ jobid: 104
 
 The job immediately executes procedure, `job_proc`, populating table, `jobrun`, with a row:
 
-```text
+```sql
 SELECT * FROM jobrun;
-
+__OUTPUT__
             runtime
 -------------------------------------
  job_proc run at 2007-12-11 11:43:25

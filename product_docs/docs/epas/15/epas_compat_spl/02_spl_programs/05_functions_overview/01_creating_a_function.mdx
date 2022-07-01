@@ -10,7 +10,7 @@ If a schema name is included, then the function is created in the specified sche
 
 To update the definition of an existing function, use `CREATE OR REPLACE FUNCTION`. It is not possible to change the name or argument types of a function this way (if you tried, you would actually be creating a new, distinct function). Also, `CREATE OR REPLACE FUNCTION` will not let you change the return type of an existing function. To do that, you must drop and recreate the function. Also when using `OUT` parameters, you cannot change the types of any `OUT` parameters except by dropping the function.
 
-```text
+```sql
 CREATE [ OR REPLACE ] FUNCTION <name> [ (<parameters>) ]
   RETURN <data_type>
    [
@@ -145,7 +145,7 @@ CREATE [ OR REPLACE ] FUNCTION <name> [ (<parameters>) ]
 
 The following is an example of a simple function that takes no parameters.
 
-```text
+```sql
 CREATE OR REPLACE FUNCTION simple_function
     RETURN VARCHAR2
 IS
@@ -156,7 +156,7 @@ END simple_function;
 
 The following function takes two input parameters. Parameters are discussed in more detail in subsequent sections.
 
-```text
+```sql
 CREATE OR REPLACE FUNCTION emp_comp (
     p_sal           NUMBER,
     p_comm          NUMBER
@@ -169,7 +169,7 @@ END emp_comp;
 
 The following example demonstrates using the `AUTHID CURRENT_USER` clause and `STRICT` keyword in a function declaration:
 
-```text
+```sql
 CREATE OR REPLACE FUNCTION dept_salaries(dept_id int) RETURN NUMBER
   STRICT
   AUTHID CURRENT_USER

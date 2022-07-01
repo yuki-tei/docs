@@ -20,7 +20,7 @@ You can use the `%ROWTYPE` attribute to declare a record. The `%ROWTYPE` attribu
 
 `record` is an identifier assigned to the record. `table` is the name of a table (or view) whose columns are to define the fields in the record. The following example shows how the `emp_sal_query` procedure from the prior section can be modified to use `emp%ROWTYPE` to create a record named `r_emp` instead of declaring individual variables for the columns in `emp`.
 
-```text
+```sql
 CREATE OR REPLACE PROCEDURE emp_sal_query (
     p_empno         IN emp.empno%TYPE
 )

@@ -10,7 +10,7 @@ The term *block* refers to the SPL block structure consisting of an optional dec
 
 The phrase *the identifier is local to the block* means that the identifier (that is, a variable, cursor, type, or subprogram) is declared within the declaration section of that block and is therefore accessible by the SPL code within the executable section and optional exception section of that block.
 
-```text
+```sql
 FUNCTION <name> [ (<parameters>) ]
 RETURN <data_type>
 { IS | AS }
@@ -51,7 +51,7 @@ RETURN <data_type>
 
 The following example shows the use of a recursive subfunction:
 
-```text
+```sql
 DECLARE
     FUNCTION factorial (
         n           BINARY_INTEGER
@@ -73,7 +73,8 @@ END;
 
 The output from the example is the following:
 
-```text
+```sql
+__OUTPUT__
 1! = 1
 2! = 2
 3! = 6

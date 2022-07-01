@@ -14,13 +14,13 @@ The `TYPE IS RECORD` statement is used to create the definition of a record type
 
 The syntax for a `TYPE IS RECORD` statement is:
 
-```text
+```sql
 TYPE <rec_type> IS RECORD ( <fields> )
 ```
 
 Where `fields` is a comma-separated list of one or more field definitions of the following form:
 
-```text
+```sql
 <field_name> <data_type> [NOT NULL][{:= | DEFAULT} <default_value>]
 ```
 
@@ -62,7 +62,7 @@ Dot notation is used to make reference to the fields in the record.
 
 The `emp_sal_query` is again modified – this time using a user-defined record type and record variable.
 
-```text
+```sql
 CREATE OR REPLACE PROCEDURE emp_sal_query (
     p_empno         IN emp.empno%TYPE
 )
@@ -103,9 +103,9 @@ Note that instead of specifying data type names, the `%TYPE` attribute can be us
 
 The following is the output from executing this stored procedure.
 
-```text
+```sql
 EXEC emp_sal_query(7698);
-
+__OUTPUT__
 Employee # : 7698
 Name       : BLAKE
 Job        : MANAGER

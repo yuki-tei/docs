@@ -35,7 +35,7 @@ The `DBMS_SCHEDULER` package is dependent on the pgAgent service; you must have 
 
 Before using `DBMS_SCHEDULER`, a database superuser must create the catalog tables in which the `DBMS_SCHEDULER` programs, schedules and jobs are stored. Use the `psql` client to connect to the database, and invoke the command:
 
-```text
+```sql
 CREATE EXTENSION dbms_scheduler;
 ```
 

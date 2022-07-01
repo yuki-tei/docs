@@ -8,8 +8,9 @@ A database object inside an SPL program may either be referenced by its qualifie
 
 Locating an object with an unqualified name, however, requires the use of the current user’s search path. When a user becomes the current user of a session, a default search path is always associated with that user. The search path consists of a list of schemas which are searched in left-to-right order for locating an unqualified database object reference. The object is considered non-existent if it can’t be found in any of the schemas in the search path. The default search path can be displayed in PSQL using the `SHOW search_path` command.
 
-```text
+```sql
 edb=# SHOW search_path;
+__OUTPUT__
    search_path
 -----------------
  "$user", public

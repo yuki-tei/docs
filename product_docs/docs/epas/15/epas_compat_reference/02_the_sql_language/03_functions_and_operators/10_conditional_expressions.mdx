@@ -15,7 +15,7 @@ The following section describes the SQL-compliant conditional expressions availa
 
 The SQL `CASE` expression is a generic conditional expression, similar to if/else statements in other languages:
 
-```text
+```sql
 CASE WHEN condition THEN result
    [ WHEN ... ]
    [ ELSE result ]
@@ -26,23 +26,24 @@ END
 
 An example:
 
-```text
+```sql
 SELECT * FROM test;
-
+__OUTPUT__
  a
 ---
  1
  2
  3
 (3 rows)
-
+```
+```sql
 SELECT a,
     CASE WHEN a=1 THEN 'one'
          WHEN a=2 THEN 'two'
          ELSE 'other'
     END
 FROM test;
-
+__OUTPUT__
  a | case
 ---+-------
  1 | one
@@ -55,7 +56,7 @@ The data types of all the `result` expressions must be convertible to a single o
 
 The following “simple” `CASE` expression is a specialized variant of the general form above:
 
-```text
+```sql
 CASE expression
     WHEN value THEN result
   [ WHEN ... ]
@@ -67,14 +68,14 @@ The `expression` is computed and compared to all the `value` specifications in t
 
 The example above can be written using the simple `CASE` syntax:
 
-```text
+```sql
 SELECT a,
     CASE a WHEN 1 THEN 'one'
            WHEN 2 THEN 'two'
            ELSE 'other'
     END
 FROM test;
-
+__OUTPUT__
  a | case
 ---+-------
  1 | one
@@ -85,7 +86,7 @@ FROM test;
 
 A `CASE` expression does not evaluate any subexpressions that are not needed to determine the result. For example, this is a possible way of avoiding a division-by-zero failure:
 
-```
+```sql
 SELECT ... WHERE CASE WHEN x <> 0 THEN y/x > 1.5 ELSE false END;
 ```
 
@@ -93,13 +94,13 @@ SELECT ... WHERE CASE WHEN x <> 0 THEN y/x > 1.5 ELSE false END;
 
 The `COALESCE` function returns the first of its arguments that is not null. Null is returned only if all arguments are null.
 
-```text
+```sql
 COALESCE(value [, value2 ] ... )
 ```
 
 It is often used to substitute a default value for null values when data is retrieved for display or further computation. For example:
 
-```
+```sql
 SELECT COALESCE(description, short_description, '(none)') ...
 ```
 
@@ -109,13 +110,13 @@ Like a `CASE` expression, `COALESCE` will not evaluate arguments that are not ne
 
 The `NULLIF` function returns a null value if `value1` and `value2` are equal; otherwise it returns `value1`.
 
-```text
+```sql
 NULLIF(value1, value2)
 ```
 
 This can be used to perform the inverse operation of the `COALESCE` example given above:
 
-```
+```sql
 SELECT NULLIF(value1, '(none)') ...
 ```
 
@@ -125,7 +126,7 @@ If `value1` is (none), return a null, otherwise return `value1`.
 
 The `NVL` function returns the first of its arguments that is not null. `NVL` evaluates the first expression; if that expression evaluates to `NULL`, `NVL` returns the second expression.
 
-```text
+```sql
 NVL(expr1, expr2)
 ```
 
@@ -133,7 +134,7 @@ The return type is the same as the argument types; all arguments must have the s
 
 The following example computes a bonus for non-commissioned employees, If an employee is a commissioned employee, this expression returns the employees commission; if the employee is not a commissioned employee (that is, his commission is `NULL`), this expression returns a bonus that is 10% of his salary.
 
-```text
+```sql
 bonus = NVL(emp.commission, emp.salary * .10)
 ```
 
@@ -141,7 +142,7 @@ bonus = NVL(emp.commission, emp.salary * .10)
 
 `NVL2` evaluates an expression, and returns either the second or third expression, depending on the value of the first expression. If the first expression is not `NULL`, `NVL2` returns the value in `expr2`; if the first expression is `NULL`, `NVL2` returns the value in `expr3`.
 
-```text
+```sql
 NVL2(expr1, expr2, expr3)
 ```
 
@@ -149,7 +150,7 @@ The return type is the same as the argument types; all arguments must have the s
 
 The following example computes a bonus for commissioned employees - if a given employee is a commissioned employee, this expression returns an amount equal to 110% of his commission; if the employee is not a commissioned employee (that is, his commission is `NULL`), this expression returns `0`.
 
-```text
+```sql
 bonus = NVL2(emp.commission, emp.commission * 1.1, 0)
 ```
 
@@ -157,7 +158,7 @@ bonus = NVL2(emp.commission, emp.commission * 1.1, 0)
 
 The `GREATEST` and `LEAST` functions select the largest or smallest value from a list of any number of expressions.
 
-```text
+```sql
 GREATEST(value [, value2 ] ... )
 LEAST(value [, value2 ] ... )
 ```

@@ -57,7 +57,7 @@ The following example contains a single hierarchy of blocks contained within sta
 
 Also note that access to the descendant of local procedure `level_2a`, which is procedure `level_3a`, is not permitted, with or without qualifiers. These calls are commented out in the example.
 
-```text
+```sql
 CREATE OR REPLACE PROCEDURE level_0
 IS
     PROCEDURE level_1a
@@ -92,11 +92,11 @@ END level_0;
 
 When the standalone procedure is invoked, the output is the following, which indicates that procedure `level_2a` is successfully invoked from the calls in the executable section of procedure `level_1a`.
 
-```text
+```sql
 BEGIN
     level_0;
 END;
-
+__OUTPUT__
 BLOCK level_0
 .. BLOCK level_1a
 ...... BLOCK level_2a
@@ -117,7 +117,7 @@ The following example shows how subprograms can be invoked that are declared in 
 
 In this example, the executable section of procedure `level_3a` invokes procedure `level_2a`, which is its parent block. (Note that `v_cnt` is used to avoid an infinite loop.)
 
-```text
+```sql
 CREATE OR REPLACE PROCEDURE level_0
 IS
   v_cnt           NUMBER(2) := 0;
@@ -154,11 +154,11 @@ END level_0;
 
 The following is the resulting output:
 
-```text
+```sql
 BEGIN
     level_0;
 END;
-
+__OUTPUT__
 BLOCK level_0
 .. BLOCK level_1a
 ...... BLOCK level_2a
@@ -175,7 +175,7 @@ END BLOCK level_0
 
 In a similar example, the executable section of procedure `level_3a` invokes procedure `level_1a`, which is further up the ancestor hierarchy. (Note that `v_cnt` is used to avoid an infinite loop.)
 
-```text
+```sql
 CREATE OR REPLACE PROCEDURE level_0
 IS
     v_cnt           NUMBER(2) := 0;
@@ -212,11 +212,11 @@ END level_0;
 
 The following is the resulting output:
 
-```text
+```sql
 BEGIN
     level_0;
 END;
-
+__OUTPUT__
 BLOCK level_0
 .. BLOCK level_1a
 ...... BLOCK level_2a
@@ -241,7 +241,7 @@ In this example, the executable section of procedure `level_1b` invokes procedur
 
 Note that invocation of `level_2a` or equivalently, `level_1a.level_2a` from within procedure `level_1b` is commented out as this call would result in an error. Invoking a descendent subprogram `(level_2a)` of sibling block `(level_1a)` is not permitted.
 
-```text
+```sql
 CREATE OR REPLACE PROCEDURE level_0
 IS
     v_cnt     NUMBER(2) := 0;
@@ -275,11 +275,11 @@ END level_0;
 
 The following is the resulting output:
 
-```text
+```sql
 BEGIN
     level_0;
 END;
-
+__OUTPUT__
 BLOCK level_0
 .. BLOCK level_1b
 .. BLOCK level_1a
@@ -290,7 +290,7 @@ END BLOCK level_0
 
 In the following example, procedure `level_1a`, which is the sibling of procedure `level_1b`, which is an ancestor of procedure `level_3b` is successfully invoked.
 
-```text
+```sql
 CREATE OR REPLACE PROCEDURE level_0
 IS
     PROCEDURE level_1a
@@ -330,11 +330,11 @@ END level_0;
 
 The following is the resulting output:
 
-```text
+```sql
 BEGIN
     level_0;
 END;
-
+__OUTPUT__
 BLOCK level_0
 .. BLOCK level_1b
 ...... BLOCK level_2b

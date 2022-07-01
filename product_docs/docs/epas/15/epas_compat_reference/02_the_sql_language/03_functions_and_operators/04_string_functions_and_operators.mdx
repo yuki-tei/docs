@@ -69,7 +69,7 @@ If one uses the string concatenation operator `‘||’`, then the types that ha
 
 The following query lists the data types that have implicit coercion to text:
 
-```text
+```sql
 SELECT castsource::regtype, casttarget::regtype, castfunc::regproc,
     CASE castcontext
         WHEN 'e' THEN 'explicit'
@@ -122,7 +122,7 @@ So for example, data type `UUID` is not in this list and therefore does not have
 
 The following table is created for this example with a single row with all `NULL` column values.
 
-```text
+```sql
 CREATE TABLE null_concat_types (
     boolean_type    BOOLEAN,
     uuid_type       UUID,
@@ -136,16 +136,17 @@ Columns `boolean_type` and `char_type` have the implicit coercion to text while 
 
 Thus, string concatenation with the concatenation operator `‘||‘` against columns `boolean_type` or `char_type` results in the following:
 
-```text
+```sql
 SELECT 'x=' || boolean_type || 'y' FROM null_concat_types;
-
+__OUTPUT__
  ?column?
 ----------
  x=y
 (1 row)
-
+```
+```sql
 SELECT 'x=' || char_type || 'y' FROM null_concat_types;
-
+__OUTPUT__
  ?column?
 ----------
  x=y
@@ -154,9 +155,9 @@ SELECT 'x=' || char_type || 'y' FROM null_concat_types;
 
 But concatenation with column `uuid_type` results in the loss of the `x=` string:
 
-```text
+```sql
 SELECT 'x=' || uuid_type || 'y' FROM null_concat_types;
-
+__OUTPUT__
  ?column?
 ----------
  y
@@ -165,9 +166,9 @@ SELECT 'x=' || uuid_type || 'y' FROM null_concat_types;
 
 However, using explicit casting with `::text` prevents the loss of the `x=` string:
 
-```text
+```sql
 SELECT 'x=' || uuid_type::text || 'y' FROM null_concat_types;
-
+__OUTPUT__
  ?column?
 ----------
  x=y
@@ -176,9 +177,9 @@ SELECT 'x=' || uuid_type::text || 'y' FROM null_concat_types;
 
 Using the `CONCAT` function also preserves the `x=` string:
 
-```text
+```sql
 SELECT CONCAT('x=',uuid_type) || 'y' FROM null_concat_types;
-
+__OUTPUT__
  ?column?
 ----------
  x=y

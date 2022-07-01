@@ -9,7 +9,7 @@ legacyRedirectsGenerated:
 
 The `UTL_FILE` package provides the capability to read from, and write to files on the operating system’s file system. Non-superusers must be granted `EXECUTE` privilege on the `UTL_FILE` package by a superuser before using any of the functions or procedures in the package. For example the following command grants the privilege to user `mary`:
 
-```text
+```sql
 GRANT EXECUTE ON PACKAGE SYS.UTL_FILE TO mary;
 ```
 
@@ -59,7 +59,7 @@ If a call to a `UTL_FILE` procedure or function raises an exception, you can use
 
 When a `UTL_FILE` function or procedure creates a file, there are default file permissions as shown by the following.
 
-```text
+```shell
 -rw------- 1 enterprisedb enterprisedb 21 Jul 24 16:08 utlfile
 ```
 
@@ -78,26 +78,26 @@ The following is an example of setting the file permissions with `utl_file.umask
 
 First, set up the directory in the file system to be used by the `UTL_FILE` package. Be sure the operating system account, `enterprisedb` or `postgres`, whichever is applicable, can read and write in the directory.
 
-```text
+```shell
 mkdir /tmp/utldir
 chmod 777 /tmp/utldir
 ```
 
 The `CREATE DIRECTORY` command is issued in `psql` to create the directory database object using the file system directory created in the preceding step.
 
-```text
+```sql
 CREATE DIRECTORY utldir AS '/tmp/utldir';
 ```
 
 Set the `utl_file.umask` configuration parameter. The following setting allows the file owner any permission. Group users and other users are permitted any permission except for the execute permission.
 
-```text
+```sql
 SET utl_file.umask TO '0011';
 ```
 
 In the same session during which the `utl_file.umask` parameter is set to the desired value, run the `UTL_FILE` functions and procedures.
 
-```text
+```sql
 DECLARE
     v_utlfile       UTL_FILE.FILE_TYPE;
     v_directory     VARCHAR2(50) := 'utldir';
@@ -112,7 +112,7 @@ END;
 
 The permission settings on the resulting file show that group users and other users have read and write permissions on the file as well as the file owner.
 
-```text
+```shell
 $ pwd
 /tmp/utldir
 $ ls -l
@@ -126,7 +126,7 @@ This parameter can also be set on a per role basis with the `ALTER ROLE` command
 
 The `FCLOSE` procedure closes an open file.
 
-```text
+```sql
 FCLOSE(<file> IN OUT FILE_TYPE)
 ```
 
@@ -140,7 +140,7 @@ FCLOSE(<file> IN OUT FILE_TYPE)
 
 The `FLCLOSE_ALL` procedures closes all open files. The procedure executes successfully even if there are no open files to close.
 
-```text
+```sql
 FCLOSE_ALL
 ```
 
@@ -148,7 +148,7 @@ FCLOSE_ALL
 
 The `FCOPY` procedure copies text from one file to another.
 
-```text
+```sql
 FCOPY(<location> VARCHAR2, <filename> VARCHAR2, <dest_dir> VARCHAR2, <dest_file> VARCHAR2
   [, <start_line> PLS_INTEGER [, <end_line> PLS_INTEGER ] ])
 ```
@@ -183,7 +183,7 @@ FCOPY(<location> VARCHAR2, <filename> VARCHAR2, <dest_dir> VARCHAR2, <dest_file>
 
 The following makes a copy of a file, `C:\TEMP\EMPDIR\empfile.csv`, containing a comma-delimited list of employees from the `emp` table. The copy, `empcopy.csv`, is then listed.
 
-```text
+```sql
 CREATE DIRECTORY empdir AS 'C:/TEMP/EMPDIR';
 
 DECLARE
@@ -235,7 +235,7 @@ The following is the destination file, 'empcopy.csv'
 
 The `FFLUSH` procedure flushes unwritten data from the write buffer to the file.
 
-```text
+```sql
 FFLUSH(<file> FILE_TYPE)
 ```
 
@@ -249,7 +249,7 @@ FFLUSH(<file> FILE_TYPE)
 
 Each line is flushed after the `NEW_LINE` procedure is called.
 
-```text
+```sql
 DECLARE
     v_empfile       UTL_FILE.FILE_TYPE;
     v_directory     VARCHAR2(50) := 'empdir';
@@ -285,7 +285,7 @@ END;
 
 The `FOPEN` function opens a file for I/O.
 
-```text
+```sql
 <filetype> FILE_TYPE FOPEN(<location> VARCHAR2, <filename> VARCHAR2,<open_mode> VARCHAR2
   [, <max_linesize> BINARY_INTEGER ])
 ```
@@ -316,7 +316,7 @@ The `FOPEN` function opens a file for I/O.
 
 The `FREMOVE` procedure removes a file from the system.
 
-```text
+```sql
 FREMOVE(<location> VARCHAR2, <filename> VARCHAR2)
 ```
 
@@ -336,7 +336,7 @@ An exception is thrown if the file to be removed does not exist.
 
 The following removes file `empfile.csv`.
 
-```text
+```sql
 DECLARE
     v_directory     VARCHAR2(50) := 'empdir';
     v_filename      VARCHAR2(20) := 'empfile.csv';
@@ -356,7 +356,7 @@ Removed file: empfile.csv
 
 The `FRENAME` procedure renames a given file. This effectively moves a file from one location to another.
 
-```text
+```sql
 FRENAME(<location> VARCHAR2, <filename> VARCHAR2, <dest_dir> VARCHAR2, <dest_file> VARCHAR2,
   [ <overwrite> BOOLEAN ])
 ```
@@ -387,7 +387,7 @@ FRENAME(<location> VARCHAR2, <filename> VARCHAR2, <dest_dir> VARCHAR2, <dest_fil
 
 The following renames a file, `C:\TEMP\EMPDIR\empfile.csv`, containing a comma-delimited list of employees from the `emp` table. The renamed file, `C:\TEMP\NEWDIR\newemp.csv`, is then listed.
 
-```text
+```sql
 CREATE DIRECTORY "newdir" AS 'C:/TEMP/NEWDIR';
 
 DECLARE
@@ -441,7 +441,7 @@ The following is the renamed file, 'newemp.csv'
 
 The `GET_LINE` procedure reads a line of text from a given file up to, but not including the end-of-line terminator. A `NO_DATA_FOUND` exception is thrown when there are no more lines to read.
 
-```text
+```sql
 GET_LINE(<file> FILE_TYPE, <buffer> OUT VARCHAR2)
 ```
 
@@ -459,7 +459,7 @@ GET_LINE(<file> FILE_TYPE, <buffer> OUT VARCHAR2)
 
 The following anonymous block reads through and displays the records in file `empfile.csv`.
 
-```text
+```sql
 DECLARE
     v_empfile       UTL_FILE.FILE_TYPE;
     v_directory     VARCHAR2(50) := 'empdir';
@@ -504,7 +504,7 @@ End of file empfile.csv - 14 records retrieved
 
 The `GET_RAW` procedure reads a `RAW` string value from a file, keeps those into read buffer, and adjusts the file pointer accordingly by the number of bytes read. The `GET_RAW` ignores the end-of-file terminator. An `INVALID_FILEHANDLE`, `INVALID_OPERATION`, and `READ_ERROR` exceptions are thrown when there are no more lines to read.
 
-```text
+```sql
 GET_RAW(<file> FILE_TYPE, <buffer> OUT BYTEA [, <len> INTEGER ])
 ```
 
@@ -526,7 +526,7 @@ GET_RAW(<file> FILE_TYPE, <buffer> OUT BYTEA [, <len> INTEGER ])
 
 The following example attempts to read a `RAW` string value from the file.
 
-```text
+```sql
 CREATE DIRECTORY empdir  AS '/TMP/EMPDIR';
 
 CREATE or REPLACE FUNCTION read_bin_file() RETURN void AS
@@ -547,6 +547,7 @@ EXCEPTION
 END;
 
 edb=# SELECT read_bin_file();
+__OUTPUT__
  read_bin_file 
 ---------------
  (1 row)
@@ -556,7 +557,7 @@ edb=# SELECT read_bin_file();
 
 The `IS_OPEN` function determines whether or not the given file is open.
 
-```text
+```sql
 <status> BOOLEAN IS_OPEN(<file> FILE_TYPE)
 ```
 
@@ -574,7 +575,7 @@ The `IS_OPEN` function determines whether or not the given file is open.
 
 The `NEW_LINE` procedure writes an end-of-line character sequence in the file.
 
-```text
+```sql
 NEW_LINE(<file> FILE_TYPE [, <lines> INTEGER ])
 ```
 
@@ -592,7 +593,7 @@ NEW_LINE(<file> FILE_TYPE [, <lines> INTEGER ])
 
 A file containing a double-spaced list of employee records is written.
 
-```text
+```sql
 DECLARE
     v_empfile       UTL_FILE.FILE_TYPE;
     v_directory     VARCHAR2(50) := 'empdir';
@@ -627,7 +628,7 @@ Created file: empfile.csv
 
 This file is then displayed:
 
-```text
+```sql
 C:\TEMP\EMPDIR>TYPE empfile.csv
 
 7369,SMITH,CLERK,7902,17-DEC-80 00:00:00,800.00,,20
@@ -663,7 +664,7 @@ C:\TEMP\EMPDIR>TYPE empfile.csv
 
 The `PUT` procedure writes a string to the given file. No end-of-line character sequence is written at the end of the string. Use the `NEW_LINE` procedure to add an end-of-line character sequence.
 
-```text
+```sql
 PUT(<file> FILE_TYPE, <buffer> { DATE | NUMBER | TIMESTAMP | VARCHAR2 })
 ```
 
@@ -681,7 +682,7 @@ PUT(<file> FILE_TYPE, <buffer> { DATE | NUMBER | TIMESTAMP | VARCHAR2 })
 
 The following example uses the `PUT` procedure to create a comma-delimited file of employees from the `emp` table.
 
-```text
+```sql
 DECLARE
     v_empfile       UTL_FILE.FILE_TYPE;
     v_directory     VARCHAR2(50) := 'empdir';
@@ -716,7 +717,7 @@ Created file: empfile.csv
 
 The following is the contents of `empfile.csv` created above:
 
-```text
+```sql
 C:\TEMP\EMPDIR>TYPE empfile.csv
 
 7369,SMITH,CLERK,7902,17-DEC-80 00:00:00,800.00,,20
@@ -739,7 +740,7 @@ C:\TEMP\EMPDIR>TYPE empfile.csv
 
 The `PUT_LINE` procedure writes a single line to the given file including an end-of-line character sequence.
 
-```text
+```sql
 PUT_LINE(<file> FILE_TYPE, <buffer> { DATE | NUMBER | TIMESTAMP | VARCHAR2 })
 ```
 
@@ -757,7 +758,7 @@ PUT_LINE(<file> FILE_TYPE, <buffer> { DATE | NUMBER | TIMESTAMP | VARCHAR2 })
 
 The following example uses the `PUT_LINE` procedure to create a comma-delimited file of employees from the `emp` table.
 
-```text
+```sql
 DECLARE
     v_empfile       UTL_FILE.FILE_TYPE;
     v_directory     VARCHAR2(50) := 'empdir';
@@ -780,7 +781,7 @@ END;
 
 The following is the contents of `empfile.csv` created above:
 
-```text
+```sql
 C:\TEMP\EMPDIR>TYPE empfile.csv
 
 7369,SMITH,CLERK,7902,17-DEC-80 00:00:00,800.00,,20
@@ -803,7 +804,7 @@ C:\TEMP\EMPDIR>TYPE empfile.csv
 
 The `PUTF` procedure writes a formatted string to the given file.
 
-```text
+```sql
 PUTF(<file> FILE_TYPE, <format> VARCHAR2 [, <arg1> VARCHAR2] [, ...])
 ```
 
@@ -825,7 +826,7 @@ PUTF(<file> FILE_TYPE, <format> VARCHAR2 [, <arg1> VARCHAR2] [, ...])
 
 The following anonymous block produces formatted output containing data from the `emp` table. Note the use of the E literal syntax and double backslashes for the new line character sequence in the format string which are not compatible with Oracle databases.
 
-```text
+```sql
 DECLARE
     v_empfile       UTL_FILE.FILE_TYPE;
     v_directory     VARCHAR2(50) := 'empdir';
@@ -852,7 +853,7 @@ Created file: empfile.csv
 
 The following is the contents of `empfile.csv` created above:
 
-```text
+```sql
 C:\TEMP\EMPDIR>TYPE empfile.csv
 7369 SMITH, CLERK
 Salary: $800.00 Commission: $0
@@ -888,7 +889,7 @@ Salary: $1300.00 Commission: $0
 
 The `PUT_RAW` procedure accepts a `RAW` data value and writes those values to the output buffer. An `INVALID_FILEHANDLE`, `INVALID_OPERATION`, `WRITE_ERROR`, and `VALUE_ERROR` exceptions are thrown when there are no more lines to read.
                                                                                              
-```text
+```sql
 PUT_RAW(<file> FILE_TYPE, <buffer> BYTEA [, <autoflush> BOOLEAN ])
 ```
 
@@ -910,7 +911,7 @@ PUT_RAW(<file> FILE_TYPE, <buffer> BYTEA [, <autoflush> BOOLEAN ])
 
 The following example writes the `RAW` data value from the `emp` table.
 
-```text
+```sql
 CREATE or REPLACE FUNCTION write_bin_file() RETURN void AS
 
 DECLARE
@@ -925,6 +926,7 @@ SELECT imagerawdata INTO v_temprec from emp;
 END;
 
 edb=# SELECT write_bin_file();
+__OUTPUT__
  write_bin_file 
 --------------- 
 (1 row)

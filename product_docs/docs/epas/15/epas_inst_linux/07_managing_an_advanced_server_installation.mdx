@@ -29,7 +29,7 @@ If your installation of Advanced Server resides on version 7.x | 8.x of RHEL and
 
 The `systemctl` command must be in your search path and must be invoked with superuser privileges. To use the command, open a command line, and enter:
 
-```text
+```shell
 systemctl <action> <service_name>
 ```
 
@@ -50,31 +50,31 @@ If your installation of Advanced Server resides on version 9.x of Debian or 18.0
 
 -   Discover the current status of a service:
 
-    ```text
+    ```shell
     /usr/edb/as14/bin/epas_ctlcluster 14 main status
     ```
 
 -   Stop a service:
 
-    ```text
+    ```shell
     /usr/edb/as14/bin/epas_ctlcluster 14 main stop
     ```
 
 -   Restart a service:
 
-    ```text
+    ```shell
     /usr/edb/as14/bin/epas_ctlcluster 14 main restart
     ```
 
 -   Reload a service:
 
-    ```text
+    ```shell
     /usr/edb/as14/bin/epas_ctlcluster 14 main reload
     ```
 
 -   Control the component services:
 
-    ```text
+    ```shell
     systemctl restart edb-as@14-main
     ```
 
@@ -82,7 +82,7 @@ If your installation of Advanced Server resides on version 9.x of Debian or 18.0
 
 You can use the `pg_ctl` utility to control an Advanced Server service from the command line on any platform. `pg_ctl` allows you to start, stop, or restart the Advanced Server database server, reload the configuration parameters, or display the status of a running server. To invoke the utility, assume the identity of the cluster owner, navigate into the home directory of Advanced Server, and issue the command:
 
-```text
+```shell
 ./bin/pg_ctl -D <data_directory> <action>
 ```
 
@@ -110,7 +110,7 @@ After installing, configuring, and starting the services of Advanced Server supp
 
 On a Redhat-compatible Linux system, enter:
 
-```text
+```shell
 /sbin/chkconfig <service_name> on
 ```
 
@@ -122,7 +122,7 @@ Where `service_name` specifies the name of the service.
 
 Use the following command and options to start the `edb-psql` client:
 
-```text
+```shell
 psql -d edb -U enterprisedb
 ```
 

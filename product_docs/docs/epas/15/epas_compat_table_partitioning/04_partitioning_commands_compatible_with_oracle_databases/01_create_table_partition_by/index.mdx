@@ -10,7 +10,7 @@ Use the `PARTITION BY` clause of the `CREATE TABLE` command to create a partitio
 
 Use the first form to create a list-partitioned table:
 
-```text
+```sql
 CREATE TABLE [ schema. ]<table_name> 
    <table_definition>
    PARTITION BY LIST(<column>) [ AUTOMATIC ]
@@ -36,7 +36,7 @@ Where subpartition_template_description is:
 
 Use the second form to create a range-partitioned table:
 
-```text
+```sql
 CREATE TABLE [ schema. ]<table_name>
    <table_definition>
    PARTITION BY RANGE(<column>[, <column> ]...)
@@ -63,7 +63,7 @@ Where subpartition_template_description is:
 
 Use the third form to create a hash-partitioned table:
 
-```text
+```sql
 CREATE TABLE [ schema. ]<table_name>
    <table_definition>
    PARTITION BY HASH(<column>[, <column> ]...)
@@ -89,7 +89,7 @@ Where subpartition_template_description is:
 
 `subpartition` may be one of the following:
 
-```text
+```sql
 {<list_subpartition> | <range_subpartition> | <hash_subpartition>}
 
 where list_subpartition is:

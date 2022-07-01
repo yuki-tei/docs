@@ -14,25 +14,25 @@ SQL identifiers and key words must begin with a letter (`a-z` or `A-Z`). Subsequ
 
 Identifier and key word names are case insensitive. Therefore
 
-```
+```sql
 UPDATE MY_TABLE SET A = 5;
 ```
 
 can equivalently be written as:
 
-```
+```sql
 uPDaTE my_TabLE SeT a = 5;
 ```
 
 A convention often used is to write key words in upper case and names in lower case, e.g.,
 
-```
+```sql
 UPDATE my_table SET a = 5;
 ```
 
 There is a second kind of identifier: the *delimited identifier* or *quoted identifier*. It is formed by enclosing an arbitrary sequence of characters in double-quotes ("). A delimited identifier is always an identifier, never a key word. So `"select"` could be used to refer to a column or table named `"select"`, whereas an unquoted select would be taken as a key word and would therefore provoke a parse error when used where a table or column name is expected. The example can be written with quoted identifiers like this:
 
-```
+```sql
 UPDATE "my_table" SET "a" = 5;
 ```
 

@@ -4,7 +4,7 @@ title: "CLOSE_CURSOR"
 
 The `CLOSE_CURSOR` procedure closes an open cursor. The resources allocated to the cursor are released and it can no longer be used.
 
-```text
+```sql
 CLOSE_CURSOR(<c> IN OUT NUMBER)
 ```
 
@@ -18,7 +18,7 @@ CLOSE_CURSOR(<c> IN OUT NUMBER)
 
 The following example closes an opened cursor:
 
-```text
+```sql
 DECLARE
     curid         NUMBER;
     v_sql         VARCHAR2(150);

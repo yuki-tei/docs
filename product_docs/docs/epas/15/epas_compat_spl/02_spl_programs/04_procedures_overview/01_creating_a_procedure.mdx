@@ -10,7 +10,7 @@ If a schema name is included, then the procedure is created in the specified sch
 
 To update the definition of an existing procedure, use `CREATE OR REPLACE PROCEDURE`. It is not possible to change the name or argument types of a procedure this way (if you tried, you would actually be creating a new, distinct procedure). When using `OUT` parameters, you cannot change the types of any `OUT` parameters except by dropping the procedure.
 
-```text
+```sql
 CREATE [OR REPLACE] PROCEDURE <name> [ (<parameters>) ]
    [
           IMMUTABLE
@@ -142,7 +142,7 @@ CREATE [OR REPLACE] PROCEDURE <name> [ (<parameters>) ]
 
 The following is an example of a simple procedure that takes no parameters.
 
-```text
+```sql
 CREATE OR REPLACE PROCEDURE simple_procedure
 IS
 BEGIN
@@ -154,7 +154,7 @@ The procedure is stored in the database by entering the procedure code in Advanc
 
 The following example demonstrates using the `AUTHID DEFINER` and `SET` clauses in a procedure declaration. The `update_salary` procedure conveys the privileges of the role that defined the procedure to the role that is calling the procedure (while the procedure executes):
 
-```text
+```sql
 CREATE OR REPLACE PROCEDURE update_salary(id INT, new_salary NUMBER)
   SET SEARCH_PATH = 'public' SET WORK_MEM = '1MB'
   AUTHID DEFINER IS

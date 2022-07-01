@@ -11,7 +11,7 @@ legacyRedirectsGenerated:
 
 A database superuser can use clauses of the `ALTER USER|ROLE...` command to lock or unlock a role. The syntax is:
 
-```text
+```sql
 ALTER USER|ROLE <name>
        ACCOUNT {LOCK|UNLOCK}
        LOCK TIME '<timestamp>'
@@ -42,19 +42,19 @@ The date and time at which the role will be locked. When specifying a value for 
 
 The following example uses the `ACCOUNT LOCK` clause to lock the role named `john`. The account will remain locked until the account is unlocked with the `ACCOUNT UNLOCK` clause:
 
-```text
+```sql
 ALTER ROLE john ACCOUNT LOCK;
 ```
 
 The following example uses the `ACCOUNT UNLOCK` clause to unlock the role named `john`:
 
-```text
+```sql
 ALTER USER john ACCOUNT UNLOCK;
 ```
 
 The following example uses the `LOCK TIME 'timestamp'` clause to lock the role named `john` on September 4, 2015:
 
-```text
+```sql
 ALTER ROLE john LOCK TIME ‘September 4 12:00:00 2015’;
 ```
 
@@ -62,7 +62,7 @@ The role will remain locked for the length of time specified by the `PASSWORD_LO
 
 The following example combines the `LOCK TIME 'timestamp'` clause and the `ACCOUNT LOCK` clause to lock the role named `john` on September 4, 2015:
 
-```text
+```sql
 ALTER ROLE john LOCK TIME ‘September 4 12:00:00 2015’ ACCOUNT LOCK;
 ```
 

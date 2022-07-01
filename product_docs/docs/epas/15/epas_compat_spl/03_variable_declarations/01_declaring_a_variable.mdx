@@ -8,7 +8,7 @@ Generally, all variables used in a block must be declared in the declaration sec
 
 The general syntax of a variable declaration is:
 
-```text
+```sql
 <name> <type> [ { := | DEFAULT } { <expression> | NULL } ];
 ```
 
@@ -22,7 +22,7 @@ The default value is evaluated every time the block is entered. So, for example,
 
 The following procedure illustrates some variable declarations that utilize defaults consisting of string and numeric expressions.
 
-```text
+```sql
 CREATE OR REPLACE PROCEDURE dept_salary_rpt (
     p_deptno        NUMBER
 )
@@ -41,9 +41,9 @@ END;
 
 The following output of the above procedure shows that default values in the variable declarations are indeed assigned to the variables.
 
-```text
+```sql
 EXEC dept_salary_rpt(20);
-
+__OUTPUT__
 Report For Department # 20 on 10-JUL-07 16:44:45
 Base Annual Salary: 47366.55
 ```

@@ -13,7 +13,7 @@ The `NO_PARALLEL` optimizer hint prevents usage of a parallel scan.
 
 **Synopsis**
 
-```text
+```sql
 PARALLEL (<table> [ <parallel_degree> | DEFAULT ])
 
 NO_PARALLEL (<table>)
@@ -47,16 +47,17 @@ Regardless of the circumstance, the parallel degree never exceeds the setting of
 
 The following configuration parameter settings are in effect:
 
-```text
+```sql
 SHOW max_worker_processes;
-
+__OUTPUT__
  max_worker_processes
 ----------------------
  8
 (1 row)
-
+```
+```sql
 SHOW max_parallel_workers_per_gather;
-
+__OUTPUT__
  max_parallel_workers_per_gather
 ---------------------------------
  2
@@ -65,11 +66,11 @@ SHOW max_parallel_workers_per_gather;
 
 The following example shows the default scan on table `pgbench_accounts`. Note that a sequential scan is shown in the query plan.
 
-```text
+```sql
 SET trace_hints TO on;
 
 EXPLAIN SELECT * FROM pgbench_accounts;
-
+__OUTPUT__
                              QUERY PLAN
 ---------------------------------------------------------------------------
  Seq Scan on pgbench_accounts  (cost=0.00..53746.15 rows=2014215 width=97)
@@ -81,9 +82,9 @@ The following example uses the `PARALLEL` hint. In the query plan, the Gather no
 !!! Note
     If `trace_hints` is set to `on`, the `INFO: [HINTS]` lines appear stating that `PARALLEL` has been accepted for `pgbench_accounts` as well as other hint information. For the remaining examples, these lines will not be displayed as they generally show the same output (that is, `trace_hints` has been reset to `off`).
 
-```text
+```sql
 EXPLAIN SELECT /*+ PARALLEL(pgbench_accounts) */ * FROM pgbench_accounts;
-
+__OUTPUT__
 INFO:  [HINTS] SeqScan of [pgbench_accounts] rejected due to PARALLEL hint.
 INFO:  [HINTS] PARALLEL on [pgbench_accounts] accepted.
 INFO:  [HINTS] Index Scan of [pgbench_accounts].[pgbench_accounts_pkey]
@@ -99,11 +100,11 @@ rejected due to PARALLEL hint.
 
 Now, the `max_parallel_workers_per_gather` setting is increased:
 
-```text
+```sql
 SET max_parallel_workers_per_gather TO 6;
 
 SHOW max_parallel_workers_per_gather;
-
+__OUTPUT__
  max_parallel_workers_per_gather
 ---------------------------------
  6
@@ -112,9 +113,9 @@ SHOW max_parallel_workers_per_gather;
 
 The same query on `pgbench_accounts` is issued again with no parallel degree specification in the `PARALLEL` hint. Note that the number of planned workers has increased to `4` as determined by the optimizer.
 
-```text
+```sql
 EXPLAIN SELECT /*+ PARALLEL(pgbench_accounts) */ * FROM pgbench_accounts;
-
+__OUTPUT__
                                     QUERY PLAN
 -----------------------------------------------------------------------------
 ------------
@@ -126,9 +127,9 @@ EXPLAIN SELECT /*+ PARALLEL(pgbench_accounts) */ * FROM pgbench_accounts;
 
 Now, a value of `6` is specified for the parallel degree parameter of the `PARALLEL` hint. The planned number of workers is now returned as this specified value:
 
-```text
+```sql
 EXPLAIN SELECT /*+ PARALLEL(pgbench_accounts 6) */ * FROM pgbench_accounts;
-
+__OUTPUT__
                                     QUERY PLAN
 -----------------------------------------------------------------------------
 ------------
@@ -140,10 +141,10 @@ EXPLAIN SELECT /*+ PARALLEL(pgbench_accounts 6) */ * FROM pgbench_accounts;
 
 The same query is now issued with the `DEFAULT` setting for the parallel degree. The results indicate that the maximum allowable number of workers is planned.
 
-```text
+```sql
 EXPLAIN SELECT /*+ PARALLEL(pgbench_accounts DEFAULT) */ * FROM
 pgbench_accounts;
-
+__OUTPUT__
                                     QUERY PLAN
 -----------------------------------------------------------------------------
 ------------
@@ -160,9 +161,9 @@ Table `pgbench_accounts` is now altered so that the `parallel_workers` storage p
 
 The `parallel_workers` setting is shown by the PSQL `\d+` command.
 
-```text
+```sql
 ALTER TABLE pgbench_accounts SET (parallel_workers=3);
-
+__OUTPUT__
 \d+ pgbench_accounts
                     Table "public.pgbench_accounts"
  Column  |     Type      | Modifiers | Storage  | Stats target | Description
@@ -179,9 +180,9 @@ Options: fillfactor=100, parallel_workers=3
 
 Now, when the `PARALLEL` hint is given with no parallel degree, the resulting number of planned workers is the value from the `parallel_workers` parameter:
 
-```text
+```sql
 EXPLAIN SELECT /*+ PARALLEL(pgbench_accounts) */ * FROM pgbench_accounts;
-
+__OUTPUT__
                                     QUERY PLAN
 -----------------------------------------------------------------------------
 ------------
@@ -195,8 +196,9 @@ Specifying a parallel degree value or `DEFAULT` in the `PARALLEL` hint overrides
 
 The following example shows the `NO_PARALLEL` hint. Note that with `trace_hints` set to `on`, the `INFO: [HINTS]` message states that the parallel scan was rejected due to the `NO_PARALLEL` hint.
 
-```text
+```sql
 EXPLAIN SELECT /*+ NO_PARALLEL(pgbench_accounts) */ * FROM pgbench_accounts;
+__OUTPUT__
 INFO:  [HINTS] Parallel SeqScan of [pgbench_accounts] rejected due to
 NO_PARALLEL hint.
                              QUERY PLAN

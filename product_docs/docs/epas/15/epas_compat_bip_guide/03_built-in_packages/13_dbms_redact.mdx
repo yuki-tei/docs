@@ -156,7 +156,7 @@ The following table shows the `regexp_match_parameter` values that you can use d
 
 The `add_policy` procedure creates a new data redaction policy for a table.
 
-```text
+```sql
 PROCEDURE add_policy (
   <object_schema>                IN VARCHAR2 DEFAULT NULL,
   <object_name>                  IN VARCHAR2,
@@ -249,7 +249,7 @@ PROCEDURE add_policy (
 
 The following example illustrates how to create a policy and use full redaction for values in the `payment_details_tab` table `customer id` column.
 
-```text
+```sql
 edb=# CREATE TABLE payment_details_tab (
 customer_id NUMBER       NOT NULL,
 card_string VARCHAR2(19) NOT NULL);
@@ -284,11 +284,12 @@ END;
 
 Redacted Result:
 
-```text
+```sql
 edb=# \c edb redact_user
 You are now connected to database "edb" as user "redact_user".
 
 edb=> select customer_id from payment_details_tab order by 1;
+__OUTPUT__
  customer_id
 -------------
            0
@@ -300,7 +301,7 @@ edb=> select customer_id from payment_details_tab order by 1;
 
 The `alter_policy` procedure alters or modifies an existing data redaction policy for a table.
 
-```text
+```sql
 PROCEDURE alter_policy (
   <object_schema>                IN VARCHAR2 DEFAULT NULL,
   <object_name>                  IN VARCHAR2,
@@ -393,7 +394,7 @@ PROCEDURE alter_policy (
 
 The following example illustrates to alter a policy using partial redaction for values in the `payment_details_tab` table `card_string` (usually a credit card number) column.
 
-```text
+```sql
 \c edb base _user
 
 BEGIN
@@ -410,10 +411,11 @@ END;
 
 Redacted Result:
 
-```text
+```sql
 edb=# \c - redact_user
 You are now connected to database "edb" as user "redact_user".
 edb=> SELECT * FROM payment_details_tab;
+__OUTPUT__
  customer_id |     card_string
 -------------+---------------------
            0 | ****-****-****-1234
@@ -425,7 +427,7 @@ edb=> SELECT * FROM payment_details_tab;
 
 The `disable_policy` procedure disables an existing data redaction policy.
 
-```text
+```sql
 PROCEDURE disable_policy (
   <object_schema>       IN VARCHAR2 DEFAULT NULL,
   <object_name>         IN VARCHAR2,
@@ -451,7 +453,7 @@ PROCEDURE disable_policy (
 
 The following example illustrates how to disable a policy.
 
-```text
+```sql
 \c edb base_user
 
 BEGIN
@@ -468,7 +470,7 @@ Redacted Result: Data is no longer redacted after disabling a policy.
 
 The `enable_policy` procedure enables the previously disabled data redaction policy.
 
-```text
+```sql
 PROCEDURE enable_policy (
   <object_schema>          IN VARCHAR2 DEFAULT NULL,
   <object_name>            IN VARCHAR2,
@@ -494,7 +496,7 @@ PROCEDURE enable_policy (
 
 The following example illustrates how to enable a policy.
 
-```text
+```sql
 \c edb base_user
 
 BEGIN
@@ -511,7 +513,7 @@ Redacted Result: Data is redacted after enabling a policy.
 
 The `drop_policy` procedure drops a data redaction policy by removing the masking policy from a table.
 
-```text
+```sql
 PROCEDURE drop_policy (
   <object_schema>       IN VARCHAR2 DEFAULT NULL,
   <object_name>         IN VARCHAR2,
@@ -537,7 +539,7 @@ PROCEDURE drop_policy (
 
 The following example illustrates how to drop a policy.
 
-```text
+```sql
 \c edb base_user
 
 BEGIN
@@ -554,7 +556,7 @@ Redacted Result: The server drops the specified policy.
 
 The `update_full_redaction_values` procedure updates the default displayed values for a data redaction policy and these default values can be viewed using the `redaction_values_for_type_full` view that use the full redaction type.
 
-```TEXT
+```sql
 PROCEDURE update_full_redaction_values (
   <number_val>        IN NUMBER            DEFAULT NULL,
   <binfloat_val>      IN FLOAT4            DEFAULT NULL,
@@ -632,13 +634,14 @@ The following example illustrates how to update the full redaction values but be
 
 View the default values using `redaction_values_for_type_full` view as shown below:
 
-```text
+```sql
 edb=# \x
 Expanded display is on.
 edb=# SELECT number_value, char_value, varchar_value, date_value,
        timestamp_value, timestamp_with_time_zone_value, blob_value,
 clob_value
 FROM redaction_values_for_type_full;
+__OUTPUT__
 -[ RECORD 1 ]------------------+--------------------------
 number_value                   | 0
 char_value                     |
@@ -653,7 +656,7 @@ clob_value                     | [redacted]
 
 Now, update the default values for full redaction type. The `NULL` values will be ignored.
 
-```text
+```sql
 \c edb base_user
 
 edb=# BEGIN
@@ -671,12 +674,13 @@ END;
 
 You can now see the updated values using `redaction_values_for_type_full` view.
 
-```text
+```sql
 EDB-SPL Procedure successfully completed
 edb=# SELECT number_value, char_value, varchar_value, date_value,
        timestamp_value, timestamp_with_time_zone_value, blob_value,
 clob_value
 FROM redaction_values_for_type_full;
+__OUTPUT__
 -[ RECORD 1 ]------------------+---------------------------------------
 number_value                   | 9999999
 char_value                     | Z
@@ -691,11 +695,12 @@ clob_value                     | NEW REDACTED VALUE
 
 Redacted Result:
 
-```text
+```sql
 edb=# \c edb redact_user
 You are now connected to database "edb" as user "redact_user".
 
 edb=> select * from payment_details_tab order by 1;
+__OUTPUT__
  customer_id | card_string
 -------------+-------------
      9999999 | V

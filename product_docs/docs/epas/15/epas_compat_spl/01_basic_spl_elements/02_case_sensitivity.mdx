@@ -8,12 +8,14 @@ Keywords and user-defined identifiers that are used in an SPL program are case i
 
 Character and string constants, however, are case sensitive as well as any data retrieved from the Advanced Server database or data obtained from other external sources. The statement `DBMS_OUTPUT.PUT_LINE('Hello World!');` produces the following output:
 
-```text
+```sql
+__OUTPUT__
 Hello World!
 ```
 
 However the statement `DBMS_OUTPUT.PUT_LINE('HELLO WORLD!');` produces the output:
 
-```text
+```sql
+__OUTPUT__
 HELLO WORLD!
 ```

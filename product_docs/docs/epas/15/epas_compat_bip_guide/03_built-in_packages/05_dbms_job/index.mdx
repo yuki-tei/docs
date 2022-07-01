@@ -26,7 +26,7 @@ Advanced Server's implementation of `DBMS_JOB` is a partial implementation when 
 
 Before using `DBMS_JOB`, a database superuser must create the `pgAgent` and `DBMS_JOB` extension. Use the `psql` client to connect to a database and invoke the command:
 
-```text
+```sql
 CREATE EXTENSION pgagent;
 CREATE EXTENSION dbms_job;
 ```
@@ -40,7 +40,7 @@ Just prior to any execution of the job, the expression in the `interval` paramet
 
 The following examples use the following stored procedure, `job_proc`, which simply inserts a timestamp into table, `jobrun`, containing a single `VARCHAR2` column.
 
-```text
+```sql
 CREATE TABLE jobrun (
     runtime VARCHAR2(40)
 );

@@ -4,7 +4,7 @@ title: "PARSE"
 
 The `PARSE` procedure parses a SQL command or SPL block. If the SQL command is a DDL command, it is immediately executed and does not require running the `EXECUTE` function.
 
-```text
+```sql
 PARSE(<c> NUMBER, <statement> VARCHAR2, <language_flag> NUMBER)
 ```
 
@@ -26,7 +26,7 @@ PARSE(<c> NUMBER, <statement> VARCHAR2, <language_flag> NUMBER)
 
 The following anonymous block creates a table named, `job`. Note that DDL statements are executed immediately by the `PARSE` procedure and do not require a separate `EXECUTE` step.
 
-```text
+```sql
 DECLARE
     curid           NUMBER;
 BEGIN
@@ -39,7 +39,7 @@ END;
 
 The following inserts two rows into the `job` table.
 
-```text
+```sql
 DECLARE
     curid           NUMBER;
     v_sql           VARCHAR2(50);
@@ -63,7 +63,7 @@ Number of rows processed: 1
 
 The following anonymous block uses the `DBMS_SQL` package to execute a block containing two `INSERT` statements. Note that the end of the block contains a terminating semi-colon, while in the prior example, each individual `INSERT` statement does not have a terminating semi-colon.
 
-```text
+```sql
 DECLARE
     curid           NUMBER;
     v_sql           VARCHAR2(100);

@@ -12,9 +12,9 @@ legacyRedirectsGenerated:
 
 This feature can be used to limit the number of rows retrieved by a query. This is demonstrated in the following example:
 
-```text
+```sql
 SELECT empno, ename, job FROM emp WHERE ROWNUM < 5;
-
+__OUTPUT__
  empno | ename |   job
 -------+-------+----------
  7369  | SMITH | CLERK
@@ -26,9 +26,9 @@ SELECT empno, ename, job FROM emp WHERE ROWNUM < 5;
 
 The `ROWNUM` value is assigned to each row before any sorting of the result set takes place. Thus, the result set is returned in the order given by the `ORDER BY` clause, but the `ROWNUM` values may not necessarily be in ascending order as shown in the following example:
 
-```text
+```sql
 SELECT ROWNUM, empno, ename, job FROM emp WHERE ROWNUM < 5 ORDER BY ename;
-
+__OUTPUT__
  rownum | empno | ename |   job
 --------+-------+-------+----------
       2 |  7499 | ALLEN | SALESMAN
@@ -40,17 +40,17 @@ SELECT ROWNUM, empno, ename, job FROM emp WHERE ROWNUM < 5 ORDER BY ename;
 
 The following example shows how a sequence number can be added to every row in the `jobhist` table. First a new column named, `seqno`, is added to the table and then `seqno` is set to `ROWNUM` in the `UPDATE` command.
 
-```text
+```sql
 ALTER TABLE jobhist ADD seqno NUMBER(3);
 UPDATE jobhist SET seqno = ROWNUM;
 ```
 
 The following `SELECT` command shows the new `seqno` values.
 
-```text
+```sql
 SELECT seqno, empno, TO_CHAR(startdate,'DD-MON-YY') AS start, job FROM
 jobhist;
-
+__OUTPUT__
 seqno  | empno |   start   |    job
 -------+-------+-----------+-----------
      1 |  7369 | 17-DEC-80 | CLERK

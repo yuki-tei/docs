@@ -19,7 +19,7 @@ During the installation, the graphical installer copies a number of temporary fi
 
 If invoking the installer from the command line, you can set the value of the variable on the command line. Use the command:
 
-```text
+```sql
 SET TEMP=temp_file_location
 ```
 
@@ -32,7 +32,7 @@ Where `temp_file_location` specifies the alternate location for the temporary fi
 
 During an installation, the graphical installer invokes the PostgreSQL `initdb` utility to initialize a cluster. If you are using the graphical installer, you can use the `INITDBOPTS` environment variable to specify your `initdb` preferences. Before invoking the graphical installer, set the value of `INITDBOPTS` at the command line, specifying one or more cluster options. For example:
 
-```text
+```sql
 SET INITDBOPTS= -k -E=UTF-8
 ```
 

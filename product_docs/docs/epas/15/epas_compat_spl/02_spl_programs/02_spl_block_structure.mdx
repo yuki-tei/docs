@@ -16,7 +16,7 @@ You can include an exception section within the `BEGIN - END` block. The excepti
 
 The following is the general structure of a block:
 
-```text
+```sql
 [ [ DECLARE ]
       <pragmas>
       <declarations> ]
@@ -39,7 +39,7 @@ If present, the keyword `EXCEPTION` marks the beginning of the exception section
 
 The following is the simplest possible block consisting of the `NULL` statement within the executable section. The `NULL` statement is an executable statement that does nothing.
 
-```text
+```sql
 BEGIN
    NULL;
 END;
@@ -47,7 +47,7 @@ END;
 
 The following block contains a declaration section as well as the executable section.
 
-```text
+```sql
 DECLARE
     v_numerator     NUMBER(2);
     v_denominator   NUMBER(2);
@@ -63,13 +63,14 @@ END;
 
 In this example, three numeric variables are declared of data type `NUMBER`. Values are assigned to two of the variables, and one number is divided by the other, storing the results in a third variable which is then displayed. If executed, the output would be:
 
-```text
+```sql
+__OUTPUT__
 75 divided by 14 is 5.36
 ```
 
 The following block consists of a declaration, an executable, and an exception:
 
-```text
+```sql
 DECLARE
     v_numerator     NUMBER(2);
     v_denominator   NUMBER(2);
@@ -88,6 +89,7 @@ END;
 
 The following output shows that the statement within the exception section is executed as a result of the division by zero.
 
-```text
+```sql
+__OUTPUT__
 An exception occurred
 ```

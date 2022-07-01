@@ -10,9 +10,9 @@ legacyRedirectsGenerated:
 
 Rows can be removed from a table using the `DELETE` command. For example, the following sequence of commands shows the before and after results of deleting all employees in department `20`.
 
-```text
+```sql
 SELECT ename, deptno FROM emp;
-
+__OUTPUT__
  ename  | deptno
 --------+--------
  SMITH  |     20
@@ -30,10 +30,12 @@ SELECT ename, deptno FROM emp;
  FORD   |     20
  MILLER |     10
 (14 rows)
-
+```
+```sql
 DELETE FROM emp WHERE deptno = 20;
 
 SELECT ename, deptno FROM emp;
+__OUTPUT__
  ename  | deptno
 --------+--------
  ALLEN  |     30
@@ -50,7 +52,7 @@ SELECT ename, deptno FROM emp;
 
 Be extremely careful of giving a `DELETE` command without a `WHERE` clause such as the following:
 
-```text
+```sql
 DELETE FROM tablename;
 ```
 

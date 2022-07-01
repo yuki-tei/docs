@@ -6,7 +6,7 @@ title: "dblink_ora_connect()"
 
 The `dblink_ora_connect()` function establishes a connection to an Oracle database with user-specified connection information. The function comes in two forms; the signature of the first form is:
 
-```text
+```c
 dblink_ora_connect(<conn_name>, <server_name>, <service_name>, <user_name>,
 <password>, <port>, <asDBA>)
 ```
@@ -31,7 +31,7 @@ The first form of `dblink_ora_connect()` returns a `TEXT` value.
 
 The signature of the second form of the `dblink_ora_connect()` function is:
 
-```text
+```c
 dblink_ora_connect(<foreign_server_name>, <asDBA>)
 ```
 

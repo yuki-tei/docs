@@ -15,13 +15,13 @@ Whenever an SPL program is created in Advanced Server, `EXECUTE` privilege is au
 
 This default privilege can be removed by using the `REVOKE EXECUTE` command. The following is an example:
 
-```text
+```sql
 REVOKE EXECUTE ON PROCEDURE list_emp FROM PUBLIC;
 ```
 
 Explicit `EXECUTE` privilege on the program can then be granted to individual users or groups.
 
-```text
+```sql
 GRANT EXECUTE ON PROCEDURE list_emp TO john;
 ```
 

@@ -6,7 +6,7 @@ title: "Deleting a Procedure"
 
 A procedure can be deleted from the database using the `DROP PROCEDURE` command.
 
-```text
+```sql
 DROP PROCEDURE [ IF EXISTS ] <name> [ (<parameters>) ]
     [ CASCADE | RESTRICT ];
 ```
@@ -20,6 +20,6 @@ Where `name` is the name of the procedure to be dropped.
 
 The previously created procedure is dropped in this example:
 
-```text
+```sql
 DROP PROCEDURE simple_procedure;
 ```

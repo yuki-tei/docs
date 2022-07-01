@@ -12,7 +12,7 @@ On RHEL/CentOS 7.x or RHEL/Rocky Linux/AlmaLinux 8.x, core file creation is disa
 
 -   Identify the system's current limit using the `ulimit -c` or `ulimit -a` command. `0` indicates that core file generation is disabled.
 
-    ```text
+    ```shell
     # ulimit -c
     0
 
@@ -37,7 +37,7 @@ On RHEL/CentOS 7.x or RHEL/Rocky Linux/AlmaLinux 8.x, core file creation is disa
 
 -   Create a new directory to store the core dumps and modify `kernel.core_pattern` to store the dumps in a specified directory:
 
-    ```text
+    ```shell
     mkdir -p /var/coredumps
     chmod a+w /var/coredumps
 
@@ -47,13 +47,13 @@ On RHEL/CentOS 7.x or RHEL/Rocky Linux/AlmaLinux 8.x, core file creation is disa
 
 -   Use the following command to persist the `kernel.core_pattern` setting across reboots:
 
-    ```text
+    ```shell
     echo 'kernel.core_pattern=/var/coredumps/core-%e-%p' >> /etc/sysctl.conf
     ```
 
 -   Enable core dumps in `/etc/security/limits.conf` to allow a user to create core files. Each line describes a limit for a user in the following form:
 
-    ```text
+    ```shell
     <domain>  <type>  <item>  <value>
        *       soft    core    unlimited
     ```
@@ -62,7 +62,7 @@ On RHEL/CentOS 7.x or RHEL/Rocky Linux/AlmaLinux 8.x, core file creation is disa
 
 -   Set the limit of core file size to `UNLIMITED` by using the following command:
 
-    ```text
+    ```shell
     ulimit -c unlimited
 
     ulimit -c
@@ -71,46 +71,46 @@ On RHEL/CentOS 7.x or RHEL/Rocky Linux/AlmaLinux 8.x, core file creation is disa
 
 -   To set a core limit for the services, add the following setting in `/usr/lib/systemd/system/edb-as-14.service`.
 
-    ```text
+    ```ini
     [Service]
     LimitCore=Infinity
     ```
 
 -   Reload the service configuration:
 
-    ```text
+    ```shell
     systemctl daemon-reload
     ```
 
 -   Modify the global default limit using `systemd`, add the following setting in `/etc/systemd/system.conf`.
 
-    ```
+    ```ini
     DefaultLimitCORE=Infinity
     ```
 
 -   Restart the `systemd`:
 
-    ```text
+    ```shell
     systemctl daemon-reexec
     ```
 
 -   Stop and then start Advanced Server:
 
-   ```text
+   ```shell
    systemctl stop edb-as-14
    systemctl start edb-as-14
    ```
 
 -   Now, the core dumps are enabled, install the `gdb` tool and debug packages using the following command:   
 
-    ```text
+    ```shell
     yum install gdb
     debuginfo-install edb-as14 edb-as14-server-contrib edb-as14-server edb-as14-libs
     ```
 
 -   Replace the path to a core dump file before proceeding to get a backtrace using the `bt` command to analyze output:
 
-    ```text
+    ```shell
     gdb /usr/edb/as14/bin /var/coredumps/core-edb-postgres-65499
     (gdb) bt full
     ```
@@ -121,7 +121,7 @@ On Debian 9, 10 or Ubuntu 18, 20, core file creation is disabled by default. To 
 
 -   Identify the system's current limit using the `ulimit -c` or `ulimit -a` command. `0` indicates that core file generation is disabled.
 
-    ```text
+    ```shell
     # ulimit -c
     0
 
@@ -146,7 +146,7 @@ On Debian 9, 10 or Ubuntu 18, 20, core file creation is disabled by default. To 
 
 -   Create a new directory to store the core dumps and modify `kernel.core_pattern` to store the dumps in a specified directory:
 
-    ```text
+    ```shell
     mkdir -p /var/coredumps
     chmod a+w /var/coredumps
 
@@ -156,13 +156,13 @@ On Debian 9, 10 or Ubuntu 18, 20, core file creation is disabled by default. To 
 
 -   Use the following command to persist the `kernel.core_pattern` setting across reboots:
 
-    ```text
+    ```shell
     echo 'kernel.core_pattern=/var/coredumps/core-%e-%p' >> /etc/sysctl.conf
     ```
 
 -   Enable core dumps in `/etc/security/limits.conf` to allow a user to create core files. Each line describes a limit for a user in the following form:
 
-    ```text
+    ```shell
     <domain>  <type>  <item>  <value>
        *       soft    core    unlimited
     ```
@@ -171,7 +171,7 @@ On Debian 9, 10 or Ubuntu 18, 20, core file creation is disabled by default. To 
 
 -   Set the limit of core file size to `UNLIMITED` by using the following command:
 
-    ```text
+    ```shell
     ulimit -c unlimited
 
     ulimit -c
@@ -180,46 +180,46 @@ On Debian 9, 10 or Ubuntu 18, 20, core file creation is disabled by default. To 
 
 -   To set a core limit for the services, add the following setting in `/lib/systemd/system/edb-as@.service`.
 
-    ```text
+    ```ini
     [Service]
     LimitCore=Infinity
     ```
 
 -   Reload the service configuration:
 
-    ```text
+    ```shell
     systemctl daemon-reload
     ```
 
 -   Modify the global default limit using `systemd`, add the following setting in `/etc/systemd/system.conf`.
 
-    ```
+    ```ini
     DefaultLimitCORE=Infinity
     ```
 
 -   Restart the `systemd`:
 
-    ```text
+    ```shell
     systemctl daemon-reexec
     ```
 
 -   Stop and then start Advanced Server:
 
-   ```text
+   ```shell
    systemctl stop edb-as@14.service
    systemctl start edb-as@14.service
    ```
 
 -   Now, the core dumps are enabled, install the `gdb` tool and debug symbols using the following command:   
 
-    ```text
+    ```shell
     apt-get install gdb
     apt-get install edb-as14 edb-as-contrib edb-as14-server edb-debugger-dbgsym
     ```
     
 -   Replace the path to a core dump file before proceeding to get a backtrace using the `bt` command to analyze output:
 
-    ```text
+    ```shell
     gdb /usr/lib/edb-as/14/bin /var/coredumps/core-edb-postgres-21638
     (gdb) bt full
     ```

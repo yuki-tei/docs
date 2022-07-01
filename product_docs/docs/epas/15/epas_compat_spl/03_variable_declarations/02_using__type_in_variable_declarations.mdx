@@ -17,7 +17,7 @@ Instead of coding the specific column data type into the variable declaration th
 !!! Note
     The `%TYPE` attribute can be used with formal parameter declarations as well.
 
-```text
+```sql
 <name> { { <table> | <view> }.<column> | <variable> }%TYPE;
 ```
 
@@ -28,7 +28,7 @@ Instead of coding the specific column data type into the variable declaration th
 
 In the following example a procedure queries the `emp` table using an employee number, displays the employee’s data, finds the average salary of all employees in the department to which the employee belongs, and then compares the chosen employee’s salary with the department average.
 
-```text
+```sql
 CREATE OR REPLACE PROCEDURE emp_sal_query (
     p_empno         IN NUMBER
 )
@@ -64,7 +64,7 @@ END;
 
 Instead of the above, the procedure could be written as follows without explicitly coding the `emp` table data types into the declaration section of the procedure.
 
-```text
+```sql
 CREATE OR REPLACE PROCEDURE emp_sal_query (
     p_empno         IN emp.empno%TYPE
 )
@@ -105,9 +105,9 @@ END;
 
 The following is sample output from executing this procedure.
 
-```text
+```sql
 EXEC emp_sal_query(7698);
-
+__OUTPUT__
 Employee # : 7698
 Name       : BLAKE
 Job        : MANAGER

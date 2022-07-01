@@ -56,13 +56,13 @@ Before using an RPM to install Migration Toolkit or EDB\*Plus, you must first in
 
 -   On RHEL or CentOS 7:
 
-    ```text
+    ```shell
     # yum -y install java
     ```
 
 -   On RHEL or Rocky Linux or AlmaLinux 8:
 
-    ```text
+    ```shell
     # dnf -y install java
     ```
 
@@ -89,19 +89,19 @@ You can use an RPM package to install Advanced Server on a CentOS 7 or Rocky Lin
 
     On CentOS 7:
 
-    ```text
+    ```shell
     yum -y install https://yum.enterprisedb.com/edbrepos/edb-repo-latest.noarch.rpm
     ```
 
     On Rocky Linux/AlmaLinux 8:
 
-    ```text
+    ```shell
     dnf -y install https://yum.enterprisedb.com/edbrepos/edb-repo-latest.noarch.rpm
     ```
 
 -   Replace the `USERNAME:PASSWORD` variable in the following command with the username and password of a registered EDB user:
 
-    ```text
+    ```shell
     sed -i "s@<username>:<password>@USERNAME:PASSWORD@" /etc/yum.repos.d/edb.repo
     ```
 
@@ -109,7 +109,7 @@ You can use an RPM package to install Advanced Server on a CentOS 7 or Rocky Lin
 
     On CentOS 7:
 
-    ```text
+    ```shell
     # yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
 
     # yum makecache
@@ -117,7 +117,7 @@ You can use an RPM package to install Advanced Server on a CentOS 7 or Rocky Lin
 
     On Rocky Linux/AlmaLinux 8:
 
-    ```text
+    ```shell
     # dnf -y install epel-release
 
     # dnf makecache
@@ -125,13 +125,13 @@ You can use an RPM package to install Advanced Server on a CentOS 7 or Rocky Lin
 
 -   For Rocky Linux/AlmaLinux 8, enable the PowerTools repository to satisfy package dependencies:
 
-    ```text
+    ```shell
     dnf config-manager --set-enabled PowerTools
     ```
 
     On Rocky Linux/AlmaLinux 8, disable the built-in PostgreSQL module:
 
-    ```text
+    ```shell
     dnf -qy module disable postgresql
     ```
 
@@ -139,13 +139,13 @@ The repository configuration file is named `edb.repo`. The file resides in `/etc
 
 You must download and install the repository key. Provide the registered `username` and `password` with the `curl` command to download the repository key using the following command:
 
-```text
+```shell
 curl -o /etc/pki/rpm-gpg/ENTERPRISEDB-GPG-KEY https://<username>:<password>@yum.enterprisedb.com/ENTERPRISEDB-GPG-KEY
 ```
 
 Use the following command to install the key:
 
-```text
+```shell
 rpm --import /etc/pki/rpm-gpg/ENTERPRISEDB-GPG-KEY
 ```
 
@@ -153,13 +153,13 @@ Then, you can use `yum install` or `dnf install` command to install Advanced Ser
 
 -   On CentOS 7:
 
-    ```text
+    ```shell
     yum -y install edb-as14-server
     ```
 
 -   On Rocky Linux/AlmaLinux 8:
 
-    ```text
+    ```shell
     dnf -y install edb-as14-server
     ```
 
@@ -178,19 +178,19 @@ You can use an RPM package to install Advanced Server on a RHEL host.
 
     On RHEL 7:
 
-    ```text
+    ```shell
     yum -y install https://yum.enterprisedb.com/edbrepos/edb-repo-latest.noarch.rpm
     ```
 
     On RHEL 8:
 
-    ```text
+    ```shell
     dnf -y install https://yum.enterprisedb.com/edbrepos/edb-repo-latest.noarch.rpm
     ```
 
 -   Replace the `USERNAME:PASSWORD` variable in the following command with the username and password of a registered EDB user:
 
-    ```text
+    ```shell
     sed -i "s@<username>:<password>@USERNAME:PASSWORD@" /etc/yum.repos.d/edb.repo
     ```
 
@@ -198,7 +198,7 @@ You can use an RPM package to install Advanced Server on a RHEL host.
 
     On RHEL 7:
 
-    ```text
+    ```shell
     # yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
 
     # yum makecache
@@ -206,7 +206,7 @@ You can use an RPM package to install Advanced Server on a RHEL host.
 
     On RHEL 8:
 
-    ```text
+    ```shell
     # dnf -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
 
     # dnf makecache
@@ -216,13 +216,13 @@ You can use an RPM package to install Advanced Server on a RHEL host.
 
     On RHEL 7, enable the `optional`, `extras`, and `HA` repositories to satisfy package dependencies:
 
-    ```text
+    ```shell
     subscription-manager repos --enable "rhel-*-optional-rpms" --enable "rhel-*-extras-rpms"  --enable "rhel-ha-for-rhel-*-server-rpms"
     ```
 
     On RHEL 8, enable the `codeready-builder-for-rhel-8-*-rpms` repository to satisfy package dependencies:
 
-    ```text
+    ```shell
     ARCH=$( /bin/arch )
 
     subscription-manager repos --enable "codeready-builder-for-rhel-8-${ARCH}-rpms"
@@ -230,7 +230,7 @@ You can use an RPM package to install Advanced Server on a RHEL host.
 
     On RHEL 8, disable the built-in PostgreSQL module:
 
-    ```text
+    ```shell
     dnf -qy module disable postgresql
     ```
 
@@ -238,13 +238,13 @@ The repository configuration file is named `edb.repo`. The file resides in `/etc
 
 You must download and install the repository key. Provide the registered `username` and `password` with the `curl` command to download the repository key using the following command:
 
-```text
+```shell
 curl -o /etc/pki/rpm-gpg/ENTERPRISEDB-GPG-KEY https://<username>:<password>@yum.enterprisedb.com/ENTERPRISEDB-GPG-KEY
 ```
 
 Use the following command to install the key:
 
-```text
+```shell
 rpm --import /etc/pki/rpm-gpg/ENTERPRISEDB-GPG-KEY
 ```
 
@@ -252,13 +252,13 @@ Then, you can use `yum install` or `dnf install` command to install Advanced Ser
 
 -   On RHEL 7:
 
-    ```text
+    ```shell
     yum -y install edb-as14-server
     ```
 
 -   On RHEL 8:
 
-    ```text
+    ```shell
     dnf -y install edb-as14-server
     ```
 
@@ -290,7 +290,7 @@ For each step, you must be logged in as superuser.
 
 To log in as a superuser:
 
-```sh
+```shell
 sudo su -
 ```
 
@@ -300,7 +300,7 @@ sudo su -
 
 1. Set up the EDB repository:
 
-   ```sh
+   ```shell
    dnf -y install https://yum.enterprisedb.com/edbrepos/edb-repo-latest.noarch.rpm
    ```
 
@@ -309,32 +309,32 @@ sudo su -
 1. Replace `'USERNAME:PASSWORD'` below with your username and password available from your
    [EDB account](https://www.enterprisedb.com/user) in the edb.repo file:
 
-   ```sh
+   ```shell
    sed -i "s@<username>:<password>@USERNAME:PASSWORD@" /etc/yum.repos.d/edb.repo
    ```
 
 1. Install EPEL repository and refresh the cache:
 
-   ```sh
+   ```shell
    dnf -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
    dnf makecache
    ```
 
 1. Enable the codeready-builder-for-rhel-8-\*-rpms repository since EPEL packages may depend on packages from it:
 
-   ```sh
+   ```shell
    ARCH=$( /bin/arch )
    subscription-manager repos --enable "codeready-builder-for-rhel-8-${ARCH}-rpms"
    ```
 
 1. Disable the built-in PostgreSQL module:
-   ```sh
+   ```shell
    dnf -qy module disable postgresql
    ```
 
 #### Installing the Package
 
-```sh
+```shell
 dnf -y install edb-as14-server
 ```
 
@@ -346,7 +346,7 @@ You can use an RPM package to install Advanced Server on a RHEL 7 ppc64le host.
 
 -   To install the Advance Toolchain repository:
 
-    ```text
+    ```shell
     rpm --import https://public.dhe.ibm.com/software/server/POWER/Linux/toolchain/at/redhat/RHEL7/gpg-pubkey-6976a827-5164221b
     ```
 
@@ -354,7 +354,7 @@ You can use an RPM package to install Advanced Server on a RHEL 7 ppc64le host.
 
 -   After creating the `advance-toolchain.repo` file, the `enabled` parameter is set to `1` by default.
 
-    ```text
+    ```ini
     [advance-toolchain]
     name=Advance Toolchain IBM FTP
     baseurl=https://public.dhe.ibm.com/software/server/POWER/Linux/toolchain/at/redhat/RHEL7
@@ -367,19 +367,19 @@ You can use an RPM package to install Advanced Server on a RHEL 7 ppc64le host.
 
 -   To install the repository configuration file, assume superuser privileges and invoke the following command:
 
-    ```text
+    ```shell
     yum -y install https://yum.enterprisedb.com/edbrepos/edb-repo-latest.noarch.rpm
     ```
 
 -   Replace the `USERNAME:PASSWORD` variable in the following command with the username and password of a registered EDB user:
 
-    ```text
+    ```shell
     sed -i "s@<username>:<password>@USERNAME:PASSWORD@" /etc/yum.repos.d/edb.repo
     ```
 
 -   Before installing Advanced Server, you must install the `epel-release` package:
 
-    ```text
+    ```shell
     # yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
 
     # yum makecache
@@ -389,7 +389,7 @@ You can use an RPM package to install Advanced Server on a RHEL 7 ppc64le host.
 
     On RHEL 7, enable the `optional`, `extras`, and `HA` repositories to satisfy package dependencies:
 
-    ```text
+    ```shell
     subscription-manager repos --enable "rhel-*-optional-rpms" --enable "rhel-*-extras-rpms"  --enable "rhel-ha-for-rhel-*-server-rpms"
     ```
 
@@ -397,19 +397,19 @@ The repository configuration file is named `edb.repo`. The file resides in `/etc
 
 You must download and install the repository key. Provide the registered `username` and `password` with the `curl` command to download the repository key using the following command:
 
-```text
+```shell
 curl -o /etc/pki/rpm-gpg/ENTERPRISEDB-GPG-KEY https://<username>:<password>@yum.enterprisedb.com/ENTERPRISEDB-GPG-KEY
 ```
 
 Use the following command to install the key:
 
-```text
+```shell
 rpm --import /etc/pki/rpm-gpg/ENTERPRISEDB-GPG-KEY
 ```
 
 Then, you can use `yum install` command to install Advanced Server. For example, to install the server and its core components, use the command:
 
-    ```text
+    ```shell
     yum -y install edb-as14-server
     ```
 
@@ -426,13 +426,13 @@ The tables that follow list the RPM packages that are available from EDB. You ca
 
 On RHEL or CentOS 7:
 
-```text
+```shell
 yum search <package>
 ```
 
 On RHEL or Rocky Linux or AlmaLinux 8:
 
-```text
+```shell
 dnf search <package>
 ```
 
@@ -521,13 +521,13 @@ If you have an existing Advanced Server RPM installation, you can use `yum` or `
 
 -   On RHEL or CentOS 7:
 
-    ```text
+    ```shell
     yum upgrade edb-repo
     ```
 
 -   On RHEL or Rocky Linux or AlmaLinux 8:
 
-    ```text
+    ```shell
     dnf upgrade edb-repo
     ```
 
@@ -535,13 +535,13 @@ If you have an existing Advanced Server RPM installation, you can use `yum` or `
 
 -   On RHEL or CentOS 7:
 
-    ```text
+    ```shell
     yum upgrade edb*
     ```
 
 -   On RHEL or Rocky Linux or AlmaLinux 8:
 
-    ```text
+    ```shell
     dnf upgrade edb*
     ```
 
@@ -564,7 +564,7 @@ The following steps will walk you through using the EDB apt repository to instal
 
 -   Assume superuser privileges:
 
-    ```text
+    ```shell
     sudo su –
     ```
 
@@ -572,7 +572,7 @@ The following steps will walk you through using the EDB apt repository to instal
 
     On Debian 9:
 
-    ```text
+    ```shell
     sh -c 'echo "deb https://USERNAME:PASSWORD@apt.enterprisedb.com/$(lsb_release -cs)-edb/ $(lsb_release -cs) main" > /etc/apt/sources.list.d/edb-$(lsb_release -cs).list'
     ```
 
@@ -580,37 +580,37 @@ The following steps will walk you through using the EDB apt repository to instal
 
     a.  Set up the EDB repository:
 
-    ```text
+    ```shell
     sh -c 'echo "deb [arch=amd64] https://apt.enterprisedb.com/$(lsb_release -cs)-edb/ $(lsb_release -cs) main" > /etc/apt/sources.list.d/edb-$(lsb_release -cs).list'
     ```
 
     b.  Substitute your EDB credentials for the `username` and `password` placeholders in the following command:
 
-    ```text
+    ```shell
     sh -c 'echo "machine apt.enterprisedb.com login <USERNAME> password <PASSWORD>" > /etc/apt/auth.conf.d/edb.conf'
     ```
 
 -   Add support to your system for secure APT repositories:
 
-    ```text
+    ```shell
     apt-get -y install apt-transport-https
     ```
 
 -   Add the EDB signing key:
 
-    ```text
+    ```shell
     wget -q -O - https://apt.enterprisedb.com/edb-deb.gpg.key  | sudo apt-key add -
     ```
 
 -   Update the repository metadata:
 
-    ```text
+    ```shell
     apt-get update
     ```
 
 -   Install Debian package:
 
-    ```text
+    ```shell
     apt-get –y install edb-as14-server
     ```
 
@@ -652,7 +652,7 @@ The Debian package manager places Advanced Server and supporting components in t
 
 The table that follows lists some of the Debian packages that are available from EDB. You can also use the `apt list` command to access a list of the packages that are currently available from your configured repository. Open a command line, assume superuser privileges, and enter:
 
-```text
+```shell
 apt list edb*
 ```
 
@@ -727,7 +727,7 @@ After specifying any options in the service configuration file, you can create t
 
 To invoke `initdb` on a RHEL/CentOS 7.x or Rocky Linux/AlmaLinux 8.x system, with the options specified in the service configuration file, assume the identity of the operating system superuser:
 
-```text
+```shell
 su - root
 ```
 
@@ -735,13 +735,13 @@ To initialize a cluster with the non-default values, you can use the `PGSETUP_IN
 
 To invoke `initdb` export the `PGSETUP_INITDB_OPTIONS` environment variable with the following command:
 
-```text
+```shell
 PGSETUP_INITDB_OPTIONS="-E UTF-8" /usr/edb/as14/bin/edb-as-14-setup initdb
 ```
 
 After creating the cluster, use `systemctl` to start, stop, or restart the service:
 
-```text
+```shell
 systemctl { start | stop | restart } edb-as-14
 ```
 
@@ -749,19 +749,19 @@ systemctl { start | stop | restart } edb-as-14
 
 You can initialize multiple clusters using the bundled scripts. To create a new cluster, assume `root` privileges, and invoke the bundled script:
 
-```text
+```shell
 /usr/edb/as14/bin/epas_createcluster 14 main2
 ```
 
 To start a new cluster, use the following command:
 
-```text
+```shell
 /usr/edb/as14/bin/epas_ctlcluster 14 main2 start  
 ```
 
 To list all the available clusters, use the following command:
 
-```text
+```shell
 /usr/edb/as14/bin/epas_lsclusters
 ```
 
@@ -822,7 +822,7 @@ Clusters created in PostgreSQL mode do not include compatibility features. To cr
 
 You may also specify multiple `initdb` options. For example, the following statement:
 
-```text
+```shell
 INITDBOPTS="--no-redwood-compat -U alice --locale=en_US.UTF-8"
 ```
 
@@ -866,7 +866,7 @@ For more information about using `initdb`, and the available cluster configurati
 
 You can also view online help for `initdb` by assuming superuser privileges and entering:
 
-```text
+```shell
 /path_to_initdb_installation_directory/initdb --help
 ```
 
@@ -880,7 +880,7 @@ By default, data files reside under `/var/lib/edb/as14/data` directory. To use a
 
 -   Create a copy of the unit file under the `/etc` directory:
 
-    ```text
+    ```shell
     cp /usr/lib/systemd/system/edb-as-14.service /etc/systemd/system/
     ```
 
@@ -895,25 +895,25 @@ By default, data files reside under `/var/lib/edb/as14/data` directory. To use a
 
 -   Delete the entire content of `/etc/systemd/system/edb-as-14.service` file, except the following line:
 
-    ```text
+    ```shell
     .include /lib/systemd/system/edb-as-14.service
     ```
 
 -   Run the following command to initialize the cluster at the new location:
 
-    ```text
+    ```shell
     PGSETUP_INITDB_OPTIONS="-E UTF-8" /usr/edb/as14/bin/edb-as-14-setup initdb
     ```
 
 -   Use the following command to reload `systemd`, updating the modified service scripts:
 
-    ```text
+    ```shell
     systemctl daemon-reload
     ```
 
 -   Start the Advanced Server service with the following command:
 
-    ```text
+    ```shell
     systemctl start edb-as-14
     ```
 
@@ -923,13 +923,13 @@ By default, the data files resides under `/var/lib/edb/as14/data` directory. To 
 
 -   Stop the server using the following command:
 
-    ```text
+    ```shell
     systemctl stop edb-as-14
     ```
 
 -   Check the status of SELinux using the `getenforce` or `sestatus` command:
 
-    ```text
+    ```shell
     # getenforce
     Enforcing
 
@@ -947,26 +947,26 @@ By default, the data files resides under `/var/lib/edb/as14/data` directory. To 
 
 -   Use the following command to view the SELinux context of the default database location:
 
-    ```text
+    ```shell
     ls -lZ /var/lib/edb/as14/data
     drwx------. enterprisedb enterprisedb unconfined_u:object_r:var_lib_t:s0 log
     ```
 
 -   Create a new directory for a new location of the database using the following command:
 
-    ```text
+    ```shell
     mkdir /opt/edb
     ```
 
 -   Use the following command to move the data directory to `/opt/edb`:
 
-    ```text
+    ```shell
     mv /var/lib/edb/as14/data /opt/edb/
     ```
 
 -   Create a file `edb-as-14.service` under `/etc/systemd/system` directory to include the location of a new data directory:
 
-    ```text
+    ```shell
     .include /lib/systemd/system/edb-as-14.service
     [Service]
     Environment=PGDATA=/opt/edb/data
@@ -975,25 +975,25 @@ By default, the data files resides under `/var/lib/edb/as14/data` directory. To 
 
 -   Use the `semanage` utility to set the context mapping for `/opt/edb/`. The mapping is written to `/etc/selinux/targeted/contexts/files/file.contexts.local` file.
 
-    ```text
+    ```shell
     semanage fcontext --add --equal /var/lib/edb/as14/data /opt/edb
     ```
 
 -   Apply the context mapping using `restorecon` utility:
 
-    ```text
+    ```shell
     restorecon -rv /opt/edb/
     ```
 
 -   Reload `systemd` to modify the service script using the following command:
 
-    ```text
+    ```shell
     systemctl daemon-reload
     ```
 
 -   Now, the `/opt/edb` location has been labeled correctly with the context, use the following command to start the service:
 
-    ```text
+    ```shell
     systemctl start edb-as-14
     ```
 
@@ -1009,7 +1009,7 @@ The example that follows creates an Advanced Server installation with two instan
 
 -   Make a copy of the default file with the new name. As noted at the top of the file, all modifications must reside under `/etc`. You must pick a name that is not already used in `/etc/systemd/system`.
 
-    ```text
+    ```shell
     cp /usr/lib/systemd/system/edb-as-14.service /etc/systemd/system/secondary-edb-as-14.service
     ```
 
@@ -1019,7 +1019,7 @@ The example that follows creates an Advanced Server installation with two instan
 
 -   Run `initdb`, specifying the setup script:
 
-    ```text
+    ```shell
     /usr/edb/as14/bin/edb-as-14-setup initdb secondary-edb-as-14
     ```
 
@@ -1027,13 +1027,13 @@ The example that follows creates an Advanced Server installation with two instan
 
 -   Make sure that new cluster runs after a reboot:
 
-    ```text
+    ```shell
     systemctl enable secondary-edb-as-14
     ```
 
 -   Start the second cluster with the following command:
 
-    ```text
+    ```shell
     systemctl start secondary-edb-as-14
     ```
 
@@ -1047,7 +1047,7 @@ To create and use a local repository, you must:
 
     On RHEL or CentOS 7.x:
 
-    ```bash
+    ```shell
     yum install epel-release
     yum install yum-utils
     yum install createrepo
@@ -1055,7 +1055,7 @@ To create and use a local repository, you must:
 
     On RHEL or Rocky Linux or AlmaLinux 8.x:
 
-    ```bash
+    ```shell
     dnf install epel-release
     dnf install yum-utils
     dnf install createrepo
@@ -1063,7 +1063,7 @@ To create and use a local repository, you must:
 
 -   Create a directory in which to store the repository:
 
-    ```text
+    ```shell
     mkdir /srv/repos
     ```
 
@@ -1071,7 +1071,7 @@ To create and use a local repository, you must:
 
 -   Sync the RPM packages and create the repository.
 
-    ```text
+    ```shell
     reposync -r edbas14 -p /srv/repos
     createrepo /srv/repos
     ```
@@ -1080,7 +1080,7 @@ To create and use a local repository, you must:
 
 -   On each isolated database server, configure `yum` or `dnf` to pull updates from the mirrored repository on your local network. For example, you might create a repository configuration file called `/etc/yum.repos.d/edb-repo` with connection information that specifies:
 
-    ```text
+    ```ini
     [edbas14]
     name=EnterpriseDB Advanced Server 14
     baseurl=https://yum.your_domain.com/edbas14
@@ -1092,13 +1092,13 @@ After specifying the location and connection information for your local reposito
 
 -   On RHEL or CentOS 7:
 
-    ```text
+    ```shell
     yum -y install edb-as14-server
     ```
 
 -   On RHEL or Rocky Linux or AlmaLinux 8:
 
-    ```text
+    ```shell
     dnf -y install edb-as14-server
     ```
 

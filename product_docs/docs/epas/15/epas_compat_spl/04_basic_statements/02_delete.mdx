@@ -8,7 +8,7 @@ The `DELETE` command (available in the SQL language) can also be used in SPL pro
 
 An expression in the SPL language can be used wherever an expression is allowed in the SQL `DELETE` command. Thus, SPL variables and parameters can be used to supply values to the delete operation.
 
-```text
+```sql
 CREATE OR REPLACE PROCEDURE emp_delete (
     p_empno         IN emp.empno%TYPE
 )
@@ -28,13 +28,13 @@ The `SQL%FOUND` conditional expression returns `TRUE` if a row is deleted, `FALS
 
 The following shows the deletion of an employee using this procedure.
 
-```text
+```sql
 EXEC emp_delete(9503);
 
 Deleted Employee # : 9503
 
 SELECT * FROM emp WHERE empno = 9503;
-
+__OUTPUT__
  empno | ename | job | mgr | hiredate | sal | comm | deptno
 -------+-------+-----+-----+----------+-----+------+--------
 (0 rows)

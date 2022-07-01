@@ -22,7 +22,7 @@ To create a repository configuration file, you must have the credentials that al
 
 To create the repository configuration file, assume superuser privileges and invoke the following command:
 
-```text
+```shell
 yum -y install https://yum.enterprisedb.com/edbrepos/edb-repo-latest.noarch.rpm
 ```
 
@@ -30,7 +30,7 @@ The repository configuration file is named `edb.repo`. The file resides in `/etc
 
 After creating the `edb.repo` file, use the following command to replace the `USERNAME` and `PASSWORD` placeholders in the baseurl specification with the username and password of a registered EDB user:
 
-```text
+```shell
 sed -i "s@<username>:<password>@USERNAME:PASSWORD@" /etc/yum.repos.d/edb.repo
 ```
 
@@ -41,7 +41,7 @@ sed -i "s@<username>:<password>@USERNAME:PASSWORD@" /etc/yum.repos.d/edb.repo
 
 After creating the repository configuration file and adding a username and password to the `edb.repo` file, you can install `edb-pgadmin4`. To install `edb-pgadmin4`, assume superuser privileges and invoke the following command:
 
-```text
+```shell
 yum install edb-pgadmin4*
 ```
 
@@ -59,7 +59,7 @@ The following packages will be installed:
 
 **Start pgAdmin 4 in Desktop Mode**
 
-```text
+```shell
 /usr/edb/pgadmin4/bin/pgAdmin4
 ```
 
