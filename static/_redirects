@@ -108,6 +108,12 @@
 /docs/efm/4.1/*  /docs/efm/4/:splat  301
 /docs/efm/4.2/*  /docs/efm/4/:splat  301
 
+# LiveCompare
+#   collapsed versions
+/docs/livecompare/1.17/*  /docs/livecompare/1/:splat 301
+/docs/livecompare/2.0/*   /docs/livecompare/2/:splat 301
+/docs/livecompare/2.1/*   /docs/livecompare/2/:splat 301
+
 # JDBC Connector
 #   collapsed versions
 /docs/jdbc_connector/42.2.8.1/*  /docs/jdbc_connector/latest/:splat  301
@@ -143,9 +149,9 @@
 # MTK
 # EOL'd versions
 /docs/migration_toolkit/53.0.1/*  /docs/migration_toolkit/latest/  301
+/docs/migration_toolkit/54/*      /docs/migration_toolkit/latest/:splat  301
 # Collapsed versions
 /docs/migration_toolkit/54.0.0/*  /docs/migration_toolkit/54/:splat  301
-/docs/migration_toolkit/54/*      /docs/migration_toolkit/latest/:splat  301
 /docs/migration_toolkit/55.0.0/*  /docs/migration_toolkit/55/:splat  301
 
 # Migration Portal
@@ -176,18 +182,15 @@
 /docs/ocl_connector/13.1.4.2/*  /docs/ocl_connector/13/:splat  301
 /docs/ocl_connector/14.1.0.1/*  /docs/ocl_connector/14/:splat  301
 /docs/ocl_connector/15.2.0.1/*  /docs/ocl_connector/15/:splat  301
-/docs/mysql_data_adapter/2.7.0/*  /docs/mongo_data_adapter/2/:splat  301
-/docs/mysql_data_adapter/2.6.0/*  /docs/mongo_data_adapter/2/:splat  301
-/docs/mysql_data_adapter/2.5.5/*  /docs/mongo_data_adapter/2/:splat  301
+/docs/mysql_data_adapter/2.7.0/*  /docs/mysql_data_adapter/2/:splat  301
+/docs/mysql_data_adapter/2.6.0/*  /docs/mysql_data_adapter/2/:splat  301
+/docs/mysql_data_adapter/2.5.5/*  /docs/mysql_data_adapter/2/:splat  301
 /docs/mongo_data_adapter/5.2.7/*  /docs/mongo_data_adapter/5/:splat  301
 /docs/mongo_data_adapter/5.2.8/*  /docs/mongo_data_adapter/5/:splat  301
 /docs/mongo_data_adapter/5.3.0/*  /docs/mongo_data_adapter/5/:splat  301
 /docs/hadoop_data_adapter/2.0.7/*  /docs/hadoop_data_adapter/2/:splat  301
 /docs/hadoop_data_adapter/2.0.8/*  /docs/hadoop_data_adapter/2/:splat  301
 /docs/hadoop_data_adapter/2.1.0/*  /docs/hadoop_data_adapter/2/:splat  301
-/docs/mysql_data_adapter/2.7.0/*  /docs/mongo_data_adapter/2/:splat  301
-/docs/mysql_data_adapter/2.6.0/*  /docs/mongo_data_adapter/2/:splat  301
-/docs/mysql_data_adapter/2.5.5/*  /docs/mongo_data_adapter/2/:splat  301
 
 # BigAnimal
 /docs/edbcloud/* /docs/biganimal/:splat  301
